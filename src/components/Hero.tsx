@@ -1,34 +1,61 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-white to-secondary">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-white to-secondary py-10">
       <div className="container mx-auto px-4 py-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-4xl mx-auto"
+          className="flex flex-col md:flex-row items-center gap-8"
         >
-          <span className="inline-block px-4 py-1 mb-6 text-sm font-medium bg-primary/10 text-primary rounded-full">
-            Premium Appliance Solutions
-          </span>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-            Rent Premium Appliances
-            <br />
-            <span className="text-primary">Hassle-Free Experience</span>
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Access top-quality appliances with flexible rental plans and exceptional service. Experience comfort without commitment.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors">
-              Rent Now
-            </button>
-            <button className="px-8 py-3 bg-secondary text-foreground rounded-lg font-medium hover:bg-secondary/80 transition-colors">
-              Sell Your Appliances
-            </button>
+          {/* Left Text Section */}
+          <div className="flex-1 text-left">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+              Be Prepared for This Summer
+              <br />
+              <span className="text-primary">
+                Exclusive Offers on AC Rentals
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl">
+              Stay cool this summer with our great rental deals on Window ACs
+              and Split ACs. Flexible plans and free installation included!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                className="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                onClick={() => navigate(`/rent/window-ac`)}
+              >
+                Rent Window AC
+              </button>
+              <button
+                className="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                onClick={() => navigate(`/rent/split-ac`)}
+              >
+                Rent Split AC
+              </button>
+            </div>
           </div>
+
+          {/* Right Image Section */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex-1"
+          >
+            <div className="relative bg-gradient-to-b from-transparent to-secondary rounded-lg shadow-lg p-4">
+              <img
+                src="https://images.pexels.com/photos/7347538/pexels-photo-7347538.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                alt="Air Conditioner Offer"
+                className="w-full h-auto object-cover rounded-lg"
+              />
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
