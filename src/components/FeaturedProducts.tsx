@@ -1,24 +1,35 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 
 const products = [
   {
     name: "Window AC",
     description: "Efficient cooling solutions",
     image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    price: "₹2,999/month",
+    features: ["Energy efficient", "Quick installation", "24/7 support"]
   },
   {
     name: "Split AC",
     description: "Energy-efficient comfort",
     image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    price: "₹3,499/month",
+    features: ["Smart controls", "Low noise", "Premium brands"]
   },
   {
     name: "Room Heater",
     description: "Cozy winter warmth",
     image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    price: "₹999/month",
+    features: ["Instant heating", "Safe operation", "Multiple modes"]
   },
 ];
 
 export const FeaturedProducts = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
@@ -40,20 +51,39 @@ export const FeaturedProducts = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl bg-secondary p-6 hover:shadow-lg transition-all duration-300"
             >
-              <div className="aspect-square overflow-hidden rounded-xl mb-6">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-              <p className="text-muted-foreground">{product.description}</p>
-              <button className="mt-4 text-primary font-medium hover:text-primary/80 transition-colors">
-                Learn More →
-              </button>
+              <Card className="h-full flex flex-col">
+                <CardHeader>
+                  <div className="aspect-square overflow-hidden rounded-xl mb-6">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <CardTitle className="text-xl">{product.name}</CardTitle>
+                  <CardDescription>{product.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-2xl font-bold text-primary mb-4">{product.price}</p>
+                  <ul className="space-y-2">
+                    {product.features.map((feature, i) => (
+                      <li key={i} className="flex items-center text-sm text-muted-foreground">
+                        <span className="mr-2">•</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button 
+                    className="w-full"
+                    onClick={() => navigate(`/rent/${product.name.toLowerCase().replace(' ', '-')}`)}
+                  >
+                    Rent Now
+                  </Button>
+                </CardFooter>
+              </Card>
             </motion.div>
           ))}
         </div>
