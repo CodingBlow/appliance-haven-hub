@@ -25,26 +25,47 @@ const products = [
     price: "₹999/month",
     features: ["Instant heating", "Safe operation", "Multiple modes"]
   },
+  {
+    name: "Geyser",
+    description: "Hot water on demand",
+    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    price: "₹1,499/month",
+    features: ["Energy saving", "Compact design", "Quick heating"]
+  },
+  {
+    name: "Washing Machine",
+    description: "Effortless laundry days",
+    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    price: "₹2,999/month",
+    features: ["Top & front load", "Multiple wash modes", "Water efficient"]
+  },
+  {
+    name: "Refrigerator",
+    description: "Keep it fresh and cool",
+    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    price: "₹3,999/month",
+    features: ["Spacious", "Energy efficient", "Modern design"]
+  },
 ];
 
 export const FeaturedProducts = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-gray-50">
+      <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1 mb-4 text-sm font-medium bg-primary/10 text-primary rounded-full">
+          <span className="inline-block px-6 py-2 mb-4 text-sm font-semibold text-primary uppercase tracking-wider bg-primary/20 rounded-full">
             Featured Products
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6">
             Premium Appliances for Rent
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Choose from our carefully curated selection of high-quality appliances
+          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+            Choose from our carefully curated selection of high-quality appliances with flexible rental plans.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {products.map((product, index) => (
             <motion.div
               key={product.name}
@@ -52,24 +73,24 @@ export const FeaturedProducts = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full flex flex-col">
-                <CardHeader>
-                  <div className="aspect-square overflow-hidden rounded-xl mb-6">
+              <Card className="h-full flex flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out rounded-lg">
+                <CardHeader className="relative">
+                  <div className="aspect-square overflow-hidden rounded-lg mb-6 group">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
-                  <CardTitle className="text-xl">{product.name}</CardTitle>
-                  <CardDescription>{product.description}</CardDescription>
+                  <CardTitle className="text-xl font-semibold text-gray-800">{product.name}</CardTitle>
+                  <CardDescription className="text-sm text-gray-500">{product.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <p className="text-2xl font-bold text-primary mb-4">{product.price}</p>
                   <ul className="space-y-2">
                     {product.features.map((feature, i) => (
-                      <li key={i} className="flex items-center text-sm text-muted-foreground">
-                        <span className="mr-2">•</span>
+                      <li key={i} className="flex items-center text-sm text-gray-600">
+                        <span className="mr-2 text-primary">•</span>
                         {feature}
                       </li>
                     ))}
@@ -77,7 +98,7 @@ export const FeaturedProducts = () => {
                 </CardContent>
                 <CardFooter>
                   <Button 
-                    className="w-full"
+                    className="w-full py-3 text-lg font-semibold text-white bg-primary hover:bg-primary-dark rounded-lg"
                     onClick={() => navigate(`/rent/${product.name.toLowerCase().replace(' ', '-')}`)}
                   >
                     Rent Now

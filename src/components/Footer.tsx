@@ -1,6 +1,8 @@
 import { Mail, Globe, Copyright } from "lucide-react";
 
 export const Footer = () => {
+  const currentYear = new Date().getFullYear(); // Get the current year dynamically
+
   return (
     <footer className="bg-[#1A1F2C] text-white">
       <div className="container mx-auto px-4 py-12">
@@ -43,7 +45,10 @@ export const Footer = () => {
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 flex items-center justify-center text-gray-400">
           <Copyright className="h-4 w-4 mr-2" />
-          <p>2024 ApplianceHaven. All rights reserved.</p>
+          <p>{currentYear} ApplianceHaven. All rights reserved.</p>
+        </div>
+        <div className="mt-4 text-center text-gray-400">
+          <p>Website designed by <a href="https://www.zuridox.com" className="text-primary hover:underline">Zuridox</a></p>
         </div>
       </div>
     </footer>

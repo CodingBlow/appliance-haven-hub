@@ -1,61 +1,159 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/components/ui/use-toast";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { useNavigate } from 'react-router-dom';
 
-const getPricing = (productId: string, duration: string, season: string) => {
-  const basePrice = {
-    "window-ac": 2999,
-    "split-ac": 3499,
-    "room-heater": 999,
-  }[productId] || 1999;
+// Product-specific variants
+const productVariants = {
+  "window-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
+  "split-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
+  "room-heater": ["1000W", "1500W", "2000W"],
+  geyser: ["10L", "15L", "25L"],
+  refrigerator: ["180L", "250L", "350L"],
+  "washing-machine": ["6KG", "7.5KG", "9KG"],
+};
 
-  const durationMultiplier = {
-    daily: 1,
-    monthly: 25,
-    yearly: 250,
-  }[duration] || 1;
+const getPricing = (productId: string, duration: string, variant: string) => {
+  const variantPrices = {
+    "window-ac": {
+      "1.0 TON": { daily: 299, monthly: 5999, yearly: 59999 },
+      "1.5 TON": { daily: 399, monthly: 7999, yearly: 79999 },
+      "2.0 TON": { daily: 499, monthly: 9999, yearly: 99999 },
+    },
+    "split-ac": {
+      "1.0 TON": { daily: 399, monthly: 7999, yearly: 79999 },
+      "1.5 TON": { daily: 499, monthly: 9999, yearly: 99999 },
+      "2.0 TON": { daily: 599, monthly: 11999, yearly: 119999 },
+    },
+    "room-heater": {
+      "1000W": { daily: 99, monthly: 1999, yearly: 19999 },
+      "1500W": { daily: 149, monthly: 2999, yearly: 29999 },
+      "2000W": { daily: 199, monthly: 3999, yearly: 39999 },
+    },
+    geyser: {
+      "10L": { daily: 149, monthly: 2999, yearly: 29999 },
+      "15L": { daily: 199, monthly: 3999, yearly: 39999 },
+      "25L": { daily: 249, monthly: 4999, yearly: 49999 },
+    },
+    refrigerator: {
+      "180L": { daily: 199, monthly: 3999, yearly: 39999 },
+      "250L": { daily: 249, monthly: 4999, yearly: 49999 },
+      "350L": { daily: 299, monthly: 5999, yearly: 59999 },
+    },
+    "washing-machine": {
+      "6KG": { daily: 199, monthly: 3999, yearly: 39999 },
+      "7.5KG": { daily: 249, monthly: 4999, yearly: 49999 },
+      "9KG": { daily: 299, monthly: 5999, yearly: 59999 },
+    },
+  };
 
-  const seasonMultiplier = season === "peak" ? 1.3 : 1;
-
-  return Math.round(basePrice * seasonMultiplier / durationMultiplier);
+  return (
+    variantPrices[productId as keyof typeof variantPrices]?.[variant]?.[
+      duration
+    ] || 2999
+  );
 };
 
 const getProductImage = (productId: string) => {
   const images = {
-    "window-ac": "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
-    "split-ac": "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
-    "room-heater": "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    "window-ac":
+      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    "split-ac":
+      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    "room-heater":
+      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    geyser:
+      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    refrigerator:
+      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    "washing-machine":
+      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
   };
   return images[productId as keyof typeof images] || images["window-ac"];
 };
 
 const RentPage = () => {
+  const navigate = useNavigate();
+  const TELEGRAM_BOT_TOKEN = "7549216853:AAHHWzqTmib1CvR5DFZH-zgqYCRakxM8vkc";
+  const TELEGRAM_CHAT_ID = "1684000886";
   const { productId } = useParams();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    address: "",
     duration: "monthly",
-    season: "regular",
+    variant:
+      productVariants[productId as keyof typeof productVariants]?.[0] || "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    toast({
-      title: "Request Submitted!",
-      description: "We'll contact you shortly to confirm your rental.",
-    });
+
+    // Construct the message
+    const message = `
+  Rental Request:
+  Name: ${formData.name}
+  Email: ${formData.email}
+  Phone: ${formData.phone}
+  Address: ${formData.address}
+  Duration: ${formData.duration}
+  Variant: ${formData.variant}
+    `;
+
+    // Send data to Telegram
+    try {
+      const response = await fetch(
+        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: message,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to send message to Telegram");
+      }
+
+      toast({
+        title: "Request Submitted!",
+        description: "We'll contact you shortly to confirm your rental.",
+      });
+      navigate("/");
+    } catch (error) {
+      console.error("Error sending message to Telegram:", error);
+      toast({
+        title: "Submission Failed",
+        description: "Unable to send your request. Please try again later.",
+      });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,11 +163,15 @@ const RentPage = () => {
     });
   };
 
-  const currentPrice = getPricing(productId || "", formData.duration, formData.season);
+  const currentPrice = getPricing(
+    productId || "",
+    formData.duration,
+    formData.variant
+  );
   const productImage = getProductImage(productId || "");
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 py-8">
       <Navbar />
       <div className="flex-grow py-12">
         <div className="container mx-auto px-4">
@@ -80,8 +182,12 @@ const RentPage = () => {
           >
             <Card className="max-w-4xl mx-auto">
               <CardHeader>
-                <CardTitle className="text-2xl">Rent {productId?.split('-').join(' ')}</CardTitle>
-                <CardDescription>Select your rental preferences</CardDescription>
+                <CardTitle className="text-2xl">
+                  Rent {productId?.split("-").join(" ")}
+                </CardTitle>
+                <CardDescription>
+                  Select your rental preferences
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-8">
@@ -96,10 +202,14 @@ const RentPage = () => {
                   </div>
                   <div>
                     <div className="mb-6 p-4 bg-primary/10 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-2">Current Pricing</h3>
-                      <p className="text-3xl font-bold text-primary">₹{currentPrice}/{formData.duration === "daily" ? "day" : formData.duration === "monthly" ? "month" : "year"}</p>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Current Pricing
+                      </h3>
+                      <p className="text-3xl font-bold text-primary">
+                        ₹{currentPrice}/{formData.duration}
+                      </p>
                       <p className="text-sm text-muted-foreground mt-1">
-                        {formData.season === "peak" ? "Peak season pricing applies" : "Regular season pricing"}
+                        {formData.variant} variant
                       </p>
                     </div>
 
@@ -108,76 +218,74 @@ const RentPage = () => {
                         <Label>Rental Duration</Label>
                         <RadioGroup
                           defaultValue="monthly"
-                          onValueChange={(value) => setFormData({ ...formData, duration: value })}
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, duration: value })
+                          }
                           className="grid grid-cols-3 gap-4 mt-2"
                         >
-                          <div>
-                            <RadioGroupItem value="daily" id="daily" className="peer sr-only" />
-                            <Label
-                              htmlFor="daily"
-                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                            >
-                              <span>Daily</span>
-                            </Label>
-                          </div>
-                          <div>
-                            <RadioGroupItem value="monthly" id="monthly" className="peer sr-only" />
-                            <Label
-                              htmlFor="monthly"
-                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                            >
-                              <span>Monthly</span>
-                            </Label>
-                          </div>
-                          <div>
-                            <RadioGroupItem value="yearly" id="yearly" className="peer sr-only" />
-                            <Label
-                              htmlFor="yearly"
-                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                            >
-                              <span>Yearly</span>
-                            </Label>
-                          </div>
+                          {["daily", "monthly", "yearly"].map((duration) => (
+                            <div key={duration}>
+                              <RadioGroupItem
+                                value={duration}
+                                id={duration}
+                                className="peer sr-only"
+                              />
+                              <Label
+                                htmlFor={duration}
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                              >
+                                <span className="capitalize">{duration}</span>
+                              </Label>
+                            </div>
+                          ))}
                         </RadioGroup>
                       </div>
 
                       <div>
-                        <Label>Season</Label>
+                        <Label>Variant</Label>
                         <RadioGroup
-                          defaultValue="regular"
-                          onValueChange={(value) => setFormData({ ...formData, season: value })}
-                          className="grid grid-cols-2 gap-4 mt-2"
+                          defaultValue={formData.variant}
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, variant: value })
+                          }
+                          className="grid grid-cols-3 gap-4 mt-2"
                         >
-                          <div>
-                            <RadioGroupItem value="regular" id="regular" className="peer sr-only" />
-                            <Label
-                              htmlFor="regular"
-                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                            >
-                              <span>Regular Season</span>
-                            </Label>
-                          </div>
-                          <div>
-                            <RadioGroupItem value="peak" id="peak" className="peer sr-only" />
-                            <Label
-                              htmlFor="peak"
-                              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                            >
-                              <span>Peak Season</span>
-                            </Label>
-                          </div>
+                          {productVariants[
+                            productId as keyof typeof productVariants
+                          ]?.map((variant) => (
+                            <div key={variant}>
+                              <RadioGroupItem
+                                value={variant}
+                                id={variant}
+                                className="peer sr-only"
+                              />
+                              <Label
+                                htmlFor={variant}
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                              >
+                                <span>{variant}</span>
+                              </Label>
+                            </div>
+                          ))}
                         </RadioGroup>
                       </div>
 
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button className="w-full">Submit Rental Request</Button>
+                          <Button className="w-full">
+                            Submit Rental Request
+                          </Button>
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
-                            <DialogTitle>Complete Your Rental Request</DialogTitle>
+                            <DialogTitle>
+                              Complete Your Rental Request
+                            </DialogTitle>
                           </DialogHeader>
-                          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                          <form
+                            onSubmit={handleSubmit}
+                            className="space-y-4 mt-4"
+                          >
                             <div>
                               <Label htmlFor="name">Full Name</Label>
                               <Input
@@ -209,7 +317,19 @@ const RentPage = () => {
                                 onChange={handleInputChange}
                               />
                             </div>
-                            <Button type="submit" className="w-full">Submit</Button>
+                            <div>
+                              <Label htmlFor="address">Address</Label>
+                              <Input
+                                id="address"
+                                name="address"
+                                required
+                                value={formData.address}
+                                onChange={handleInputChange}
+                              />
+                            </div>
+                            <Button type="submit" className="w-full">
+                              Submit
+                            </Button>
                           </form>
                         </DialogContent>
                       </Dialog>
