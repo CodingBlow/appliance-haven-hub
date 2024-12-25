@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Tag, Gift, X } from "lucide-react";
+import { Tag, Gift, X, ArrowRight } from "lucide-react";
 
 interface OfferDialogProps {
   open: boolean;
@@ -59,8 +59,8 @@ export const OfferDialog = ({ open, onOpenChange }: OfferDialogProps) => {
         </motion.div>
         <DialogClose asChild>
           <Button className="w-full mt-4">
-            Continue to Rental Page
-            <X className="ml-2 h-4 w-4" />
+            Continue
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </DialogClose>
       </DialogContent>
