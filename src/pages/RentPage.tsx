@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -8,8 +8,8 @@ import { Footer } from "@/components/Footer";
 import { ProductDisplay } from "@/components/rent/ProductDisplay";
 import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
+import { OfferDialog } from "@/components/rent/OfferDialog";
 
-// Product-specific variants and pricing logic
 const productVariants = {
   "window-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
   "split-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
@@ -82,6 +82,7 @@ const RentPage = () => {
   const { productId } = useParams();
   const { toast } = useToast();
   const [formDialogOpen, setFormDialogOpen] = useState(false);
+  const [offerDialogOpen, setOfferDialogOpen] = useState(true);
   const [formData, setFormData] = useState({
     duration: "monthly",
     variant: productVariants[productId as keyof typeof productVariants]?.[0] || "",
@@ -190,6 +191,8 @@ Address: ${customerData.address}
           <RentalForm onSubmit={handleFormSubmit} />
         </DialogContent>
       </Dialog>
+
+      <OfferDialog open={offerDialogOpen} onOpenChange={setOfferDialogOpen} />
 
       <Footer />
     </div>
