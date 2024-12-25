@@ -19,8 +19,8 @@ const productVariants = {
   "washing-machine": ["6KG", "7.5KG", "9KG"],
 };
 
-const getPricing = (productId: string, duration: string, variant: string) => {
-  const variantPrices = {
+const getPricing = (productId: string, duration: string, variant: string, months: number = 1) => {
+  const basePrice = {
     "window-ac": {
       "1.0 TON": { daily: 299, monthly: 5999, yearly: 59999 },
       "1.5 TON": { daily: 399, monthly: 7999, yearly: 79999 },
@@ -53,11 +53,14 @@ const getPricing = (productId: string, duration: string, variant: string) => {
     },
   };
 
-  return (
-    variantPrices[productId as keyof typeof variantPrices]?.[variant]?.[
-      duration
-    ] || 2999
-  );
+  const price = basePrice[productId as keyof typeof basePrice]?.[variant]?.[duration] || 2999;
+  
+  if (duration === "monthly") {
+    const discount = Math.min(months * 0.05, 0.25); // Max 25% discount
+    return Math.round(price * months * (1 - discount));
+  }
+  
+  return price;
 };
 
 const getProductImage = (productId: string) => {
@@ -86,6 +89,7 @@ const RentPage = () => {
   const [formData, setFormData] = useState({
     duration: "monthly",
     variant: productVariants[productId as keyof typeof productVariants]?.[0] || "",
+    months: "1",
   });
 
   const handleDurationChange = (value: string) => {
@@ -94,6 +98,10 @@ const RentPage = () => {
 
   const handleVariantChange = (value: string) => {
     setFormData({ ...formData, variant: value });
+  };
+
+  const handleMonthsChange = (value: string) => {
+    setFormData({ ...formData, months: value });
   };
 
   const handleFormSubmit = async (customerData: any) => {
@@ -105,6 +113,7 @@ Rental Request:
 Product: ${productId}
 Variant: ${formData.variant}
 Duration: ${formData.duration}
+Months: ${formData.months}
 Name: ${customerData.name}
 Email: ${customerData.email}
 Phone: ${customerData.phone}
@@ -141,7 +150,13 @@ Address: ${customerData.address}
     }
   };
 
-  const currentPrice = getPricing(productId || "", formData.duration, formData.variant);
+  const currentPrice = getPricing(
+    productId || "", 
+    formData.duration, 
+    formData.variant, 
+    parseInt(formData.months)
+  );
+  
   const productImage = getProductImage(productId || "");
 
   const title = `Rent ${productId?.split("-").join(" ")} | ApplianceHaven`;
@@ -177,6 +192,8 @@ Address: ${customerData.address}
               productVariants={productVariants[productId as keyof typeof productVariants] || []}
               onDurationChange={handleDurationChange}
               onVariantChange={handleVariantChange}
+              onMonthsChange={handleMonthsChange}
+              selectedMonths={formData.months}
               onSubmitClick={() => setFormDialogOpen(true)}
             />
           </div>

@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { Clock, Calendar, Package } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface PricingSectionProps {
   duration: string;
@@ -12,6 +13,8 @@ interface PricingSectionProps {
   productVariants: string[];
   onDurationChange: (value: string) => void;
   onVariantChange: (value: string) => void;
+  onMonthsChange?: (value: string) => void;
+  selectedMonths?: string;
   onSubmitClick: () => void;
 }
 
@@ -22,6 +25,8 @@ export const PricingSection = ({
   productVariants,
   onDurationChange,
   onVariantChange,
+  onMonthsChange,
+  selectedMonths,
   onSubmitClick,
 }: PricingSectionProps) => {
   return (
@@ -36,7 +41,9 @@ export const PricingSection = ({
             <h2 className="text-3xl font-bold">Rental Options</h2>
             <div className="text-right">
               <p className="text-4xl font-bold text-primary">₹{currentPrice}</p>
-              <p className="text-muted-foreground">per {duration}</p>
+              <p className="text-muted-foreground">
+                per {duration === "monthly" && selectedMonths ? `${selectedMonths} months` : duration}
+              </p>
             </div>
           </div>
 
@@ -64,6 +71,26 @@ export const PricingSection = ({
                 ))}
               </RadioGroup>
             </div>
+
+            {duration === "monthly" && (
+              <div>
+                <Label className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Calendar className="h-5 w-5" /> Number of Months
+                </Label>
+                <Select onValueChange={onMonthsChange} value={selectedMonths}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select duration" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) => (
+                      <SelectItem key={month} value={month.toString()}>
+                        {month} {month === 1 ? 'month' : 'months'}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             <div>
               <Label className="text-xl font-semibold mb-4 flex items-center gap-2">
