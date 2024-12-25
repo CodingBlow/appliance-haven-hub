@@ -14,13 +14,11 @@ export const Navbar = () => {
 
   return (
     <nav className="border-b bg-white shadow-md fixed top-0 left-0 w-full z-50">
-      <div className="container mx-auto px-6 h-20 flex items-center justify-between"> {/* Increased height and padding */}
-        {/* Logo */}
+      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <a href="/" className="text-2xl font-bold text-primary">
           ApplianceHaven
         </a>
 
-        {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-8">
           <NavigationMenu>
             <NavigationMenuList>
@@ -29,23 +27,18 @@ export const Navbar = () => {
                 <NavigationMenuContent className="bg-white shadow-lg rounded-md">
                   <div className="grid gap-3 p-4 w-[400px]">
                     <NavigationMenuLink asChild>
-                      <a className="block p-2 hover:bg-muted rounded-md" href="/products/ac">
+                      <a className="block p-2 hover:bg-muted rounded-md" href="/products">
+                        All Products
+                      </a>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <a className="block p-2 hover:bg-muted rounded-md" href="/products#ac">
                         Air Conditioners
                       </a>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <a className="block p-2 hover:bg-muted rounded-md" href="/products/heaters">
+                      <a className="block p-2 hover:bg-muted rounded-md" href="/products#heaters">
                         Heaters
-                      </a>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <a className="block p-2 hover:bg-muted rounded-md" href="/products/refrigerators">
-                        Refrigerators
-                      </a>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <a className="block p-2 hover:bg-muted rounded-md" href="/products/washing-machines">
-                        Washing Machines
                       </a>
                     </NavigationMenuLink>
                   </div>
@@ -61,18 +54,13 @@ export const Navbar = () => {
                       </a>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <a className="block p-2 hover:bg-muted rounded-md" href="/services/trade-in">
-                        Trade-In Services
+                      <a className="block p-2 hover:bg-muted rounded-md" href="/sell">
+                        Sell Your Appliance
                       </a>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
                       <a className="block p-2 hover:bg-muted rounded-md" href="/services/maintenance">
                         Maintenance
-                      </a>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <a className="block p-2 hover:bg-muted rounded-md" href="/services/installation">
-                        Installation Services
                       </a>
                     </NavigationMenuLink>
                   </div>
@@ -114,24 +102,17 @@ export const Navbar = () => {
             <Menu className="h-6 w-6 text-black" />
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="bg-white shadow-md p-4 md:hidden">
-          <div className="space-y-4">
-            <a href="/products/ac" className="block text-black text-xl hover:underline"> {/* Increased font size and black text */}
-              Air Conditioners
-            </a>
-            <a href="/products/heaters" className="block text-black text-xl hover:underline">
-              Heaters
-            </a>
-            <a href="/products/refrigerators" className="block text-black text-xl hover:underline">
-              Refrigerators
-            </a>
-            <a href="/products/washing-machines" className="block text-black text-xl hover:underline">
-              Washing Machines
-            </a>
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="bg-white shadow-md p-4 md:hidden">
+            <div className="space-y-4">
+              <a href="/products" className="block text-black text-xl hover:underline">
+                All Products
+              </a>
+              <a href="/sell" className="block text-black text-xl hover:underline">
+                Sell Your Appliance
+              </a>
             <a href="/services/rental" className="block text-black text-xl hover:underline">
               Rental Plans
             </a>
@@ -158,9 +139,10 @@ export const Navbar = () => {
             >
               WhatsApp Us
             </a>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
   );
 };
