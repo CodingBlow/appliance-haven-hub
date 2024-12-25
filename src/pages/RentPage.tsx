@@ -22,34 +22,34 @@ const productVariants = {
 const getPricing = (productId: string, duration: string, variant: string, months: number = 1) => {
   const basePrice = {
     "window-ac": {
-      "1.0 TON": { daily: 299, monthly: 5999, yearly: 59999 },
-      "1.5 TON": { daily: 399, monthly: 7999, yearly: 79999 },
-      "2.0 TON": { daily: 499, monthly: 9999, yearly: 99999 },
+      "1.0 TON": { monthly: 5999, yearly: 59999 },
+      "1.5 TON": { monthly: 7999, yearly: 79999 },
+      "2.0 TON": { monthly: 9999, yearly: 99999 },
     },
     "split-ac": {
-      "1.0 TON": { daily: 399, monthly: 7999, yearly: 79999 },
-      "1.5 TON": { daily: 499, monthly: 9999, yearly: 99999 },
-      "2.0 TON": { daily: 599, monthly: 11999, yearly: 119999 },
+      "1.0 TON": { monthly: 7999, yearly: 79999 },
+      "1.5 TON": { monthly: 9999, yearly: 99999 },
+      "2.0 TON": { monthly: 11999, yearly: 119999 },
     },
     "room-heater": {
-      "1000W": { daily: 99, monthly: 1999, yearly: 19999 },
-      "1500W": { daily: 149, monthly: 2999, yearly: 29999 },
-      "2000W": { daily: 199, monthly: 3999, yearly: 39999 },
+      "1000W": { monthly: 1999, yearly: 19999 },
+      "1500W": { monthly: 2999, yearly: 29999 },
+      "2000W": { monthly: 3999, yearly: 39999 },
     },
     geyser: {
-      "10L": { daily: 149, monthly: 2999, yearly: 29999 },
-      "15L": { daily: 199, monthly: 3999, yearly: 39999 },
-      "25L": { daily: 249, monthly: 4999, yearly: 49999 },
+      "10L": { monthly: 2999, yearly: 29999 },
+      "15L": { monthly: 3999, yearly: 39999 },
+      "25L": { monthly: 4999, yearly: 49999 },
     },
     refrigerator: {
-      "180L": { daily: 199, monthly: 3999, yearly: 39999 },
-      "250L": { daily: 249, monthly: 4999, yearly: 49999 },
-      "350L": { daily: 299, monthly: 5999, yearly: 59999 },
+      "180L": { monthly: 3999, yearly: 39999 },
+      "250L": { monthly: 4999, yearly: 49999 },
+      "350L": { monthly: 5999, yearly: 59999 },
     },
     "washing-machine": {
-      "6KG": { daily: 199, monthly: 3999, yearly: 39999 },
-      "7.5KG": { daily: 249, monthly: 4999, yearly: 49999 },
-      "9KG": { daily: 299, monthly: 5999, yearly: 59999 },
+      "6KG": { monthly: 3999, yearly: 39999 },
+      "7.5KG": { monthly: 4999, yearly: 49999 },
+      "9KG": { monthly: 5999, yearly: 59999 },
     },
   };
 

@@ -55,9 +55,9 @@ export const PricingSection = ({
               <RadioGroup
                 defaultValue="monthly"
                 onValueChange={onDurationChange}
-                className="grid grid-cols-3 gap-4"
+                className="grid grid-cols-2 gap-4"
               >
-                {["daily", "monthly", "yearly"].map((d) => (
+                {["monthly", "yearly"].map((d) => (
                   <div key={d}>
                     <RadioGroupItem value={d} id={d} className="peer sr-only" />
                     <Label
