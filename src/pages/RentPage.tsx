@@ -1,30 +1,15 @@
 import { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { useNavigate } from 'react-router-dom';
+import { ProductDisplay } from "@/components/rent/ProductDisplay";
+import { PricingSection } from "@/components/rent/PricingSection";
+import { RentalForm } from "@/components/rent/RentalForm";
 
-// Product-specific variants
+// Product-specific variants and pricing logic
 const productVariants = {
   "window-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
   "split-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
@@ -94,37 +79,37 @@ const getProductImage = (productId: string) => {
 };
 
 const RentPage = () => {
-  const navigate = useNavigate();
-  const TELEGRAM_BOT_TOKEN = "7549216853:AAHHWzqTmib1CvR5DFZH-zgqYCRakxM8vkc";
-  const TELEGRAM_CHAT_ID = "1684000886";
   const { productId } = useParams();
   const { toast } = useToast();
+  const [formDialogOpen, setFormDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
     duration: "monthly",
-    variant:
-      productVariants[productId as keyof typeof productVariants]?.[0] || "",
+    variant: productVariants[productId as keyof typeof productVariants]?.[0] || "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
+  const handleDurationChange = (value: string) => {
+    setFormData({ ...formData, duration: value });
+  };
 
-    // Construct the message
+  const handleVariantChange = (value: string) => {
+    setFormData({ ...formData, variant: value });
+  };
+
+  const handleFormSubmit = async (customerData: any) => {
+    const TELEGRAM_BOT_TOKEN = "7549216853:AAHHWzqTmib1CvR5DFZH-zgqYCRakxM8vkc";
+    const TELEGRAM_CHAT_ID = "1684000886";
+
     const message = `
-  Rental Request:
-  Name: ${formData.name}
-  Email: ${formData.email}
-  Phone: ${formData.phone}
-  Address: ${formData.address}
-  Duration: ${formData.duration}
-  Variant: ${formData.variant}
+Rental Request:
+Product: ${productId}
+Variant: ${formData.variant}
+Duration: ${formData.duration}
+Name: ${customerData.name}
+Email: ${customerData.email}
+Phone: ${customerData.phone}
+Address: ${customerData.address}
     `;
 
-    // Send data to Telegram
     try {
       const response = await fetch(
         `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
@@ -138,209 +123,74 @@ const RentPage = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to send message to Telegram");
-      }
+      if (!response.ok) throw new Error("Failed to send message to Telegram");
 
       toast({
-        title: "Request Submitted!",
+        title: "Request Submitted Successfully!",
         description: "We'll contact you shortly to confirm your rental.",
       });
-      navigate("/");
+      setFormDialogOpen(false);
     } catch (error) {
       console.error("Error sending message to Telegram:", error);
       toast({
         title: "Submission Failed",
         description: "Unable to send your request. Please try again later.",
+        variant: "destructive",
       });
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const currentPrice = getPricing(
-    productId || "",
-    formData.duration,
-    formData.variant
-  );
+  const currentPrice = getPricing(productId || "", formData.duration, formData.variant);
   const productImage = getProductImage(productId || "");
 
+  const title = `Rent ${productId?.split("-").join(" ")} | ApplianceHaven`;
+  const description = `Rent a premium ${productId?.split("-").join(" ")} with flexible rental periods. Available in ${formData.variant} variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
+
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 py-8">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={productImage} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={productImage} />
+      </Helmet>
+
       <Navbar />
-      <div className="flex-grow py-12">
+      
+      <main className="flex-grow py-20">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card className="max-w-4xl mx-auto">
-              <CardHeader>
-                <CardTitle className="text-2xl">
-                  Rent {productId?.split("-").join(" ")}
-                </CardTitle>
-                <CardDescription>
-                  Select your rental preferences
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <div className="aspect-square overflow-hidden rounded-xl mb-6">
-                      <img
-                        src={productImage}
-                        alt={productId}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mb-6 p-4 bg-primary/10 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-2">
-                        Current Pricing
-                      </h3>
-                      <p className="text-3xl font-bold text-primary">
-                        ₹{currentPrice}/{formData.duration}
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {formData.variant} variant
-                      </p>
-                    </div>
-
-                    <div className="space-y-6">
-                      <div>
-                        <Label>Rental Duration</Label>
-                        <RadioGroup
-                          defaultValue="monthly"
-                          onValueChange={(value) =>
-                            setFormData({ ...formData, duration: value })
-                          }
-                          className="grid grid-cols-3 gap-4 mt-2"
-                        >
-                          {["daily", "monthly", "yearly"].map((duration) => (
-                            <div key={duration}>
-                              <RadioGroupItem
-                                value={duration}
-                                id={duration}
-                                className="peer sr-only"
-                              />
-                              <Label
-                                htmlFor={duration}
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                              >
-                                <span className="capitalize">{duration}</span>
-                              </Label>
-                            </div>
-                          ))}
-                        </RadioGroup>
-                      </div>
-
-                      <div>
-                        <Label>Variant</Label>
-                        <RadioGroup
-                          defaultValue={formData.variant}
-                          onValueChange={(value) =>
-                            setFormData({ ...formData, variant: value })
-                          }
-                          className="grid grid-cols-3 gap-4 mt-2"
-                        >
-                          {productVariants[
-                            productId as keyof typeof productVariants
-                          ]?.map((variant) => (
-                            <div key={variant}>
-                              <RadioGroupItem
-                                value={variant}
-                                id={variant}
-                                className="peer sr-only"
-                              />
-                              <Label
-                                htmlFor={variant}
-                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                              >
-                                <span>{variant}</span>
-                              </Label>
-                            </div>
-                          ))}
-                        </RadioGroup>
-                      </div>
-
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button className="w-full">
-                            Submit Rental Request
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>
-                              Complete Your Rental Request
-                            </DialogTitle>
-                          </DialogHeader>
-                          <form
-                            onSubmit={handleSubmit}
-                            className="space-y-4 mt-4"
-                          >
-                            <div>
-                              <Label htmlFor="name">Full Name</Label>
-                              <Input
-                                id="name"
-                                name="name"
-                                required
-                                value={formData.name}
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor="email">Email</Label>
-                              <Input
-                                id="email"
-                                name="email"
-                                type="email"
-                                required
-                                value={formData.email}
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor="phone">Phone Number</Label>
-                              <Input
-                                id="phone"
-                                name="phone"
-                                required
-                                value={formData.phone}
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor="address">Address</Label>
-                              <Input
-                                id="address"
-                                name="address"
-                                required
-                                value={formData.address}
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <Button type="submit" className="w-full">
-                              Submit
-                            </Button>
-                          </form>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <ProductDisplay
+              productId={productId || ""}
+              productImage={productImage}
+              variant={formData.variant}
+            />
+            <PricingSection
+              duration={formData.duration}
+              variant={formData.variant}
+              currentPrice={currentPrice}
+              productVariants={productVariants[productId as keyof typeof productVariants] || []}
+              onDurationChange={handleDurationChange}
+              onVariantChange={handleVariantChange}
+              onSubmitClick={() => setFormDialogOpen(true)}
+            />
+          </div>
         </div>
-      </div>
+      </main>
+
+      <Dialog open={formDialogOpen} onOpenChange={setFormDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Complete Your Rental Request</DialogTitle>
+          </DialogHeader>
+          <RentalForm onSubmit={handleFormSubmit} />
+        </DialogContent>
+      </Dialog>
+
       <Footer />
     </div>
   );
