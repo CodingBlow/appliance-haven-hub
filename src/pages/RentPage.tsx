@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -19,48 +24,162 @@ const productVariants = {
   "washing-machine": ["6KG", "7.5KG", "9KG"],
 };
 
-const getPricing = (productId: string, duration: string, variant: string, months: number = 1) => {
+const getPricing = (
+  productId: string,
+  duration: string,
+  variant: string,
+  months: number = 1
+) => {
   const basePrice = {
     "window-ac": {
-      "1.0 TON": { monthly: 5999, yearly: 59999 },
-      "1.5 TON": { monthly: 7999, yearly: 79999 },
-      "2.0 TON": { monthly: 9999, yearly: 99999 },
+      "0.75 TON": {
+        3: 7869,
+        4: 8600,
+        5: 9245,
+        6: 9804,
+        7: 10234,
+        8: 10320,
+      },
+      "1.0 TON": {
+        3: 7960,
+        4: 8700,
+        5: 9352,
+        6: 9918,
+        7: 10048,
+        8: 10300,
+      },
+      "1.5 TON": {
+        3: 8052,
+        4: 8700,
+        5: 9352,
+        6: 10032,
+        7: 10472,
+        8: 10560,
+      },
+      "2.0 TON": {
+        3: 8143,
+        4: 8900,
+        5: 9567,
+        6: 10146,
+        7: 10591,
+        8: 10680,
+      },
     },
     "split-ac": {
-      "1.0 TON": { monthly: 7999, yearly: 79999 },
-      "1.5 TON": { monthly: 9999, yearly: 99999 },
-      "2.0 TON": { monthly: 11999, yearly: 119999 },
+      "1.0 TON": {
+        3: 9772,
+        4: 11656,
+        5: 11780,
+        6: 11978,
+        7: 12152,
+        8: 12300,
+      },
+      "1.5 TON": {
+        3: 10452,
+        4: 12596,
+        5: 12730,
+        6: 12944,
+        7: 13132,
+        8: 13292,
+      },
+      "2.0 TON": {
+        3: 11232,
+        4: 13536,
+        5: 13680,
+        6: 13910,
+        7: 14112,
+        8: 14284,
+      },
     },
     "room-heater": {
-      "1000W": { monthly: 1999, yearly: 19999 },
-      "1500W": { monthly: 2999, yearly: 29999 },
-      "2000W": { monthly: 3999, yearly: 39999 },
+      "9Fin": {
+        "1": 2500,
+        "2": 3500,
+        "3": 4000,
+      },
+      "11Fin": {
+        "1": 2800,
+        "2": 4000,
+        "3": 4500,
+      },
+      "12Fin": {
+        "1": 2900,
+        "2": 4200,
+        "3": 4500,
+      },
+      "13Fin": {
+        "1": 3000,
+        "2": 4400,
+        "3": 4600,
+      },
     },
-    geyser: {
-      "10L": { monthly: 2999, yearly: 29999 },
-      "15L": { monthly: 3999, yearly: 39999 },
-      "25L": { monthly: 4999, yearly: 49999 },
+    "geyser": {
+      "15L - 20L": {
+        "2": 2500,
+        "3": 2700,
+        "4": 2961,
+        "5": 3001,
+      },
     },
-    refrigerator: {
-      "180L": { monthly: 3999, yearly: 39999 },
-      "250L": { monthly: 4999, yearly: 49999 },
-      "350L": { monthly: 5999, yearly: 59999 },
+    "refrigerator": {
+      "150-220L": {
+        "4": 3680,
+        "5": 4400,
+        "6": 4800,
+        "7": 5600,
+        "8": 6400,
+        "9": 7200,
+        "10": 8000,
+        "11": 8800,
+        "12": 9600,
+      },
+      "220-400L": {
+        "4": 4140,
+        "5": 4950,
+        "6": 5400,
+        "7": 6300,
+        "8": 7200,
+        "9": 8100,
+        "10": 9000,
+        "11": 9900,
+        "12": 10800,
+      },
     },
     "washing-machine": {
-      "6KG": { monthly: 3999, yearly: 39999 },
-      "7.5KG": { monthly: 4999, yearly: 49999 },
-      "9KG": { monthly: 5999, yearly: 59999 },
+      "semi-automatic": {
+        "4": 3220,
+        "5": 3850,
+        "6": 4200,
+        "7": 4900,
+        "8": 5600,
+        "9": 6300,
+        "10": 7000,
+        "11": 7700,
+        "12": 8400,
+      },
+      "fully-automatic": {
+        "4": 3450,
+        "5": 4125,
+        "6": 4500,
+        "7": 5250,
+        "8": 6000,
+        "9": 6750,
+        "10": 7500,
+        "11": 8250,
+        "12": 9000,
+      },
     },
   };
 
-  const price = basePrice[productId as keyof typeof basePrice]?.[variant]?.[duration] || 2999;
-  
-  if (duration === "monthly") {
-    const discount = Math.min(months * 0.05, 0.25); // Max 25% discount
-    return Math.round(price * months * (1 - discount));
+  const priceForVariant =
+    basePrice[productId as keyof typeof basePrice]?.[variant];
+
+  if (priceForVariant && priceForVariant[months]) {
+    return priceForVariant[months];
   }
-  
-  return price;
+
+  const defaultPrice = 2999;
+  return defaultPrice;
 };
 
 const getProductImage = (productId: string) => {
@@ -88,7 +207,8 @@ const RentPage = () => {
   const [offerDialogOpen, setOfferDialogOpen] = useState(true);
   const [formData, setFormData] = useState({
     duration: "monthly",
-    variant: productVariants[productId as keyof typeof productVariants]?.[0] || "",
+    variant:
+      productVariants[productId as keyof typeof productVariants]?.[0] || "",
     months: "1",
   });
 
@@ -151,16 +271,20 @@ Address: ${customerData.address}
   };
 
   const currentPrice = getPricing(
-    productId || "", 
-    formData.duration, 
-    formData.variant, 
+    productId || "",
+    formData.duration,
+    formData.variant,
     parseInt(formData.months)
   );
-  
+
   const productImage = getProductImage(productId || "");
 
   const title = `Rent ${productId?.split("-").join(" ")} | ApplianceHaven`;
-  const description = `Rent a premium ${productId?.split("-").join(" ")} with flexible rental periods. Available in ${formData.variant} variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
+  const description = `Rent a premium ${productId
+    ?.split("-")
+    .join(" ")} with flexible rental periods. Available in ${
+    formData.variant
+  } variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -176,7 +300,7 @@ Address: ${customerData.address}
       </Helmet>
 
       <Navbar />
-      
+
       <main className="flex-grow py-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
@@ -189,7 +313,9 @@ Address: ${customerData.address}
               duration={formData.duration}
               variant={formData.variant}
               currentPrice={currentPrice}
-              productVariants={productVariants[productId as keyof typeof productVariants] || []}
+              productVariants={
+                productVariants[productId as keyof typeof productVariants] || []
+              }
               onDurationChange={handleDurationChange}
               onVariantChange={handleVariantChange}
               onMonthsChange={handleMonthsChange}

@@ -81,7 +81,7 @@ export const PricingSection = ({
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select duration" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white text-gray-900">
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) => (
                       <SelectItem key={month} value={month.toString()}>
                         {month} {month === 1 ? 'month' : 'months'}

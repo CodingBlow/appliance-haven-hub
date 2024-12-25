@@ -19,20 +19,104 @@ import {
 const SellAppliance = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [images, setImages] = useState<FileList | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImages(e.target.files);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const applianceData = {
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      location: formData.get("location"),
+      applianceType: formData.get("applianceType"),
+      brand: formData.get("brand"),
+      model: formData.get("model"),
+      age: formData.get("age"),
+      condition: formData.get("condition"),
+      price: formData.get("price"),
+      description: formData.get("description"),
+    };
+
+    // Format the message to send to Telegram
+    const message = `
+      New Appliance Listing:
+      Name: ${applianceData.name}
+      Phone: ${applianceData.phone}
+      Location: ${applianceData.location}
+      Appliance Type: ${applianceData.applianceType}
+      Brand: ${applianceData.brand}
+      Model: ${applianceData.model}
+      Age: ${applianceData.age} years
+      Condition: ${applianceData.condition}
+      Expected Price: ₹${applianceData.price}
+      Description: ${applianceData.description}
+    `;
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    const botToken = "8072679516:AAGeio5ucrKRLliFFq_o1oU15yjblkeRbHs";
+    const chatId = "1684000886";
+    
+    const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    
+    // Send the message to Telegram
+    const response = await fetch(telegramApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+      }),
+    });
+    
+    if (response.ok) {
+      // Now handle the image upload
+      if (images && images.length > 0) {
+        // Send each image one by one
+        for (let i = 0; i < images.length; i++) {
+          const image = images[i];
+          const formData = new FormData();
+          formData.append("photo", image);
+          formData.append("chat_id", chatId);
+
+          const photoResponse = await fetch(
+            `https://api.telegram.org/bot${botToken}/sendPhoto`,
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          if (!photoResponse.ok) {
+            toast({
+              title: "Error",
+              description: "There was an issue uploading the image.",
+            });
+          }
+        }
+      }
+
       toast({
         title: "Success!",
         description: "Your appliance listing has been submitted for review.",
       });
       (e.target as HTMLFormElement).reset();
-    }, 1500);
+    } else {
+      toast({
+        title: "Error",
+        description: "There was an issue submitting your form.",
+      });
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -50,13 +134,43 @@ const SellAppliance = () => {
               <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-4">
+                    {/* Name Field */}
+                    <div>
+                      <Label htmlFor="name">Your Name</Label>
+                      <Input name="name" id="name" placeholder="Enter your name" required />
+                    </div>
+
+                    {/* Phone Field */}
+                    <div>
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input
+                        name="phone"
+                        id="phone"
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        required
+                      />
+                    </div>
+
+                    {/* Location Field */}
+                    <div>
+                      <Label htmlFor="location">Location</Label>
+                      <Input
+                        name="location"
+                        id="location"
+                        placeholder="Enter your location"
+                        required
+                      />
+                    </div>
+
+                    {/* Appliance Type */}
                     <div>
                       <Label htmlFor="applianceType">Appliance Type</Label>
-                      <Select required>
+                      <Select name="applianceType" required>
                         <SelectTrigger>
                           <SelectValue placeholder="Select appliance type" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white text-gray-900">
                           <SelectItem value="window-ac">Window AC</SelectItem>
                           <SelectItem value="split-ac">Split AC</SelectItem>
                           <SelectItem value="portable-ac">Portable AC</SelectItem>
@@ -64,19 +178,23 @@ const SellAppliance = () => {
                       </Select>
                     </div>
 
+                    {/* Brand Field */}
                     <div>
                       <Label htmlFor="brand">Brand</Label>
-                      <Input id="brand" placeholder="Enter brand name" required />
+                      <Input name="brand" id="brand" placeholder="Enter brand name" required />
                     </div>
 
+                    {/* Model Field */}
                     <div>
                       <Label htmlFor="model">Model</Label>
-                      <Input id="model" placeholder="Enter model number" required />
+                      <Input name="model" id="model" placeholder="Enter model number" required />
                     </div>
 
+                    {/* Age Field */}
                     <div>
                       <Label htmlFor="age">Age of Appliance</Label>
                       <Input
+                        name="age"
                         id="age"
                         type="number"
                         placeholder="Age in years"
@@ -85,13 +203,14 @@ const SellAppliance = () => {
                       />
                     </div>
 
+                    {/* Condition Field */}
                     <div>
                       <Label htmlFor="condition">Condition</Label>
-                      <Select required>
+                      <Select name="condition" required>
                         <SelectTrigger>
                           <SelectValue placeholder="Select condition" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white text-gray-900">
                           <SelectItem value="like-new">Like New</SelectItem>
                           <SelectItem value="excellent">Excellent</SelectItem>
                           <SelectItem value="good">Good</SelectItem>
@@ -100,9 +219,11 @@ const SellAppliance = () => {
                       </Select>
                     </div>
 
+                    {/* Price Field */}
                     <div>
                       <Label htmlFor="price">Expected Price (₹)</Label>
                       <Input
+                        name="price"
                         id="price"
                         type="number"
                         placeholder="Enter your expected price"
@@ -111,9 +232,11 @@ const SellAppliance = () => {
                       />
                     </div>
 
+                    {/* Description Field */}
                     <div>
                       <Label htmlFor="description">Description</Label>
                       <Textarea
+                        name="description"
                         id="description"
                         placeholder="Describe your appliance's features and condition"
                         className="h-32"
@@ -121,13 +244,16 @@ const SellAppliance = () => {
                       />
                     </div>
 
+                    {/* Upload Images Field */}
                     <div>
                       <Label htmlFor="images">Upload Images</Label>
                       <Input
+                        name="images"
                         id="images"
                         type="file"
                         accept="image/*"
                         multiple
+                        onChange={handleFileChange}
                         required
                         className="cursor-pointer"
                       />
