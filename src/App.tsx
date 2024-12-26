@@ -10,6 +10,10 @@ import SellAppliance from "./pages/SellAppliance";
 import Maintenance from "./pages/Maintenance";
 import ScrollToTop from "./components/ScrollToTop";
 import FloatingButton from "./components/FloatingButton";
+import Terms from "./pages/Terms&con.tsx";
+import PrivacyPolicy from "./pages/PrivacyPol.tsx";
+import Contact from "./pages/ContactUs.tsx";
+import AboutUs from "./pages/AboutUs.tsx";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +31,10 @@ const App = () => (
           <Route path="/products/:category" element={<Products />} />
           <Route path="/sell" element={<SellAppliance />} />
           <Route path="/maintenance" element={<Maintenance />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<AboutUs />} />
         </Routes>
         <FloatingButton />
       </BrowserRouter>

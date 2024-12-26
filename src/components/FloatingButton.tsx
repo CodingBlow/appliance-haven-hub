@@ -6,7 +6,7 @@ const FloatingButton: React.FC = () => {
     <div className="fixed bottom-4 right-4 flex flex-col space-y-4 z-50">
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/<YOUR_PHONE_NUMBER>"
+        href="https://wa.me/+918800120156"
         target="_blank"
         rel="noopener noreferrer"
         className="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
@@ -17,7 +17,7 @@ const FloatingButton: React.FC = () => {
 
       {/* Call Button */}
       <a
-        href="tel:+<YOUR_PHONE_NUMBER>"
+        href="tel:+918800120156"
         className="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition"
         aria-label="Call"
       >

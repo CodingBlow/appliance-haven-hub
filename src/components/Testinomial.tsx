@@ -1,4 +1,7 @@
 import React from "react";
+import logo1 from "../assets/Screenshot 2024-12-26 082704.png";
+import logo2 from "../assets/Screenshot 2024-12-26 082914.png";
+import logo3 from "../assets/Screenshot 2024-12-26 082900.png";
 
 interface Testimonial {
   name: string;
@@ -9,25 +12,25 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    name: "John Doe",
+    name: "Sanjay  Kumar",
     position: "CEO, TechCorp",
     message:
-      "Working with ApplianceHaven has been a fantastic experience. Their services are top-notch, and their support team is always available.",
-    image: "https://via.placeholder.com/150",
+      "Working with Ac On Rent Gurugram has been a fantastic experience. Their services are top-notch, and their support team is always available.",
+    image: logo1,
   },
   {
-    name: "Jane Smith",
+    name: "Rakesh Soni",
     position: "Marketing Manager, Brandify",
     message:
       "The team went above and beyond to meet our requirements. The results were excellent, and we highly recommend their services.",
-    image: "https://via.placeholder.com/150",
+    image: logo2,
   },
   {
-    name: "Michael Brown",
+    name: "Pankaj Khurana",
     position: "Founder, InnovateHub",
     message:
-      "ApplianceHaven helped us scale our business by providing the best solutions. They are reliable and deliver exceptional results.",
-    image: "https://via.placeholder.com/150",
+      "Ac On Rent Gurugram helped us scale our business by providing the best solutions. They are reliable and deliver exceptional results.",
+    image: logo3,
   },
 ];
 

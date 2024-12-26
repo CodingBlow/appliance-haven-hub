@@ -29,17 +29,17 @@ const productVariants = {
 const getProductImage = (productId: string) => {
   const images = {
     "window-ac":
-      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+      "https://www.ikrent.com/assets/image/ikrent-window-ac-for-rent-gurgaon.webp",
     "split-ac":
-      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+      "https://www.ikrent.com/assets/image/ikrent-split-ac-on-rent.webp",
     "room-heater":
-      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+      "https://www.ikrent.com/assets/image/ikrent-OFR-9-fin-on-rent.webp",
     geyser:
-      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+      "https://www.ikrent.com/assets/image/ikrent-water-geyser-for-rent.webp",
     refrigerator:
-      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+      "https://www.ikrent.com/assets/image/ikrent-refrigerator-on-rent.webp",
     "washing-machine":
-      "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+      "https://www.ikrent.com/assets/image/ikrent-semi-automatic-washing-machine-on-rent.webp",
   };
   return images[productId as keyof typeof images] || images["window-ac"];
 };
@@ -126,7 +126,7 @@ Address: ${customerData.address}
 
   const productImage = getProductImage(productId || "");
 
-  const title = `Rent ${productId?.split("-").join(" ")} | ApplianceHaven`;
+  const title = `Rent ${productId?.split("-").join(" ")} | Ac On Rent Gurugram`;
   const description = `Rent a premium ${productId
     ?.split("-")
     .join(" ")} with flexible rental periods. Available in ${
@@ -190,7 +190,7 @@ Address: ${customerData.address}
                       <img
                         src={getProductImage(p)}
                         alt={p.split("-").join(" ")}
-                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-48 object-fit group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="p-4">
                         <h3 className="text-lg font-semibold capitalize">
