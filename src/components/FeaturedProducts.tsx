@@ -2,49 +2,56 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import Split from "../assets/Product Image/Split AC.png";
+import WindowAC from "../assets/Product Image/Window Ac.jpg";
+import RoomHeater from "../assets/Product Image/Room Heater.jpg";
+import Fridge from "../assets/Product Image/Fridge.jpg";
+import WashingMachine from "../assets/Product Image/Washing mac.jpg";
+import Geyser from "../assets/Product Image/geyser.jpg";
+
 
 const products = [
   {
     name: "Window AC",
     description: "Efficient cooling solutions",
-    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    image: WindowAC,
     price: "₹2,999/month",
-    features: ["Energy efficient", "Quick installation", "24/7 support"]
+    features: ["Energy efficient", "Quick installation", "24/7 support"],
   },
   {
     name: "Split AC",
     description: "Energy-efficient comfort",
-    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    image: Split,
     price: "₹3,499/month",
-    features: ["Smart controls", "Low noise", "Premium brands"]
+    features: ["Smart controls", "Low noise", "Premium brands"],
   },
   {
     name: "Room Heater",
     description: "Cozy winter warmth",
-    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    image: RoomHeater,
     price: "₹999/month",
-    features: ["Instant heating", "Safe operation", "Multiple modes"]
+    features: ["Instant heating", "Safe operation", "Multiple modes"],
   },
   {
     name: "Geyser",
     description: "Hot water on demand",
-    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    image: Geyser,
     price: "₹1,499/month",
-    features: ["Energy saving", "Compact design", "Quick heating"]
+    features: ["Energy saving", "Compact design", "Quick heating"],
   },
   {
     name: "Washing Machine",
     description: "Effortless laundry days",
-    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    image: WashingMachine,
     price: "₹2,999/month",
-    features: ["Top & front load", "Multiple wash modes", "Water efficient"]
+    features: ["Top & front load", "Multiple wash modes", "Water efficient"],
   },
   {
     name: "Refrigerator",
     description: "Keep it fresh and cool",
-    image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=400&q=80",
+    image: Fridge,
     price: "₹3,999/month",
-    features: ["Spacious", "Energy efficient", "Modern design"]
+    features: ["Spacious", "Energy efficient", "Modern design"],
   },
 ];
 

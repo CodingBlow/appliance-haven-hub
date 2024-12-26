@@ -13,7 +13,7 @@ import { Footer } from "@/components/Footer";
 import { ProductDisplay } from "@/components/rent/ProductDisplay";
 import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
-import { OfferDialog } from "@/components/rent/OfferDialog";
+// import { OfferDialog } from "@/components/rent/OfferDialog";
 import { Link } from "react-router-dom";
 import { getAvailableMonths, getPricing } from "@/utils/pricing";
 
@@ -48,7 +48,7 @@ const RentPage = () => {
   const { productId } = useParams();
   const { toast } = useToast();
   const [formDialogOpen, setFormDialogOpen] = useState(false);
-  const [offerDialogOpen, setOfferDialogOpen] = useState(true);
+  // const [offerDialogOpen, setOfferDialogOpen] = useState(true);
   const [formData, setFormData] = useState({
     duration: "monthly",
     variant:
@@ -226,7 +226,7 @@ Address: ${customerData.address}
         </DialogContent>
       </Dialog>
 
-      <OfferDialog open={offerDialogOpen} onOpenChange={setOfferDialogOpen} />
+      {/* <OfferDialog open={offerDialogOpen} onOpenChange={setOfferDialogOpen} /> */}
 
       <Footer />
     </div>

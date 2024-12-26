@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import { Clock, Calendar, Package } from "lucide-react";
+import { Calendar, Package } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface PricingSectionProps {
@@ -25,7 +25,6 @@ export const PricingSection = ({
   currentPrice,
   productVariants,
   availableMonths,
-  onDurationChange,
   onVariantChange,
   onMonthsChange,
   selectedMonths,
@@ -51,7 +50,7 @@ export const PricingSection = ({
           </div>
 
           <div className="space-y-6">
-            <div>
+            {/* <div>
               <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
                 <Clock className="h-4 w-4" /> Rental Duration
               </Label>
@@ -74,7 +73,7 @@ export const PricingSection = ({
                   </div>
                 ))}
               </RadioGroup>
-            </div>
+            </div> */}
             <div>
               <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
                 <Package className="h-4 w-4" /> Capacity Variant
