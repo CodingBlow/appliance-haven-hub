@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {
@@ -14,6 +14,7 @@ import { ProductDisplay } from "@/components/rent/ProductDisplay";
 import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
 import { OfferDialog } from "@/components/rent/OfferDialog";
+import { Link } from "react-router-dom";
 
 const productVariants = {
   "window-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
@@ -234,6 +235,7 @@ Product: ${productId}
 Variant: ${formData.variant}
 Duration: ${formData.duration}
 Months: ${formData.months}
+Price: ₹${currentPrice}
 Name: ${customerData.name}
 Email: ${customerData.email}
 Phone: ${customerData.phone}
@@ -303,25 +305,72 @@ Address: ${customerData.address}
 
       <main className="flex-grow py-20">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            <ProductDisplay
-              productId={productId || ""}
-              productImage={productImage}
-              variant={formData.variant}
-            />
-            <PricingSection
-              duration={formData.duration}
-              variant={formData.variant}
-              currentPrice={currentPrice}
-              productVariants={
-                productVariants[productId as keyof typeof productVariants] || []
-              }
-              onDurationChange={handleDurationChange}
-              onVariantChange={handleVariantChange}
-              onMonthsChange={handleMonthsChange}
-              selectedMonths={formData.months}
-              onSubmitClick={() => setFormDialogOpen(true)}
-            />
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div className="lg:max-w-md">
+              <ProductDisplay
+                productId={productId || ""}
+                productImage={productImage}
+                variant={formData.variant}
+              />
+              
+              <div className="mt-6 p-4 bg-white rounded-lg shadow">
+                <h3 className="text-lg font-semibold mb-2">Important Information:</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Refundable security deposit: ₹1,000</li>
+                  <li>• All payments are due in advance on delivery</li>
+                  <li>• Free maintenance covered for all rental products</li>
+                  <li>• The longer you rent, the less you spend per month</li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <PricingSection
+                duration={formData.duration}
+                variant={formData.variant}
+                currentPrice={currentPrice}
+                productVariants={
+                  productVariants[productId as keyof typeof productVariants] || []
+                }
+                onDurationChange={handleDurationChange}
+                onVariantChange={handleVariantChange}
+                onMonthsChange={handleMonthsChange}
+                selectedMonths={formData.months}
+                onSubmitClick={() => setFormDialogOpen(true)}
+              />
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-6">Similar Products</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Object.keys(productVariants)
+                .filter((p) => p !== productId)
+                .slice(0, 3)
+                .map((p) => (
+                  <Link
+                    key={p}
+                    to={`/rent/${p}`}
+                    className="block group"
+                  >
+                    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                      <img
+                        src={getProductImage(p)}
+                        alt={p.split("-").join(" ")}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="p-4">
+                        <h3 className="text-lg font-semibold capitalize">
+                          {p.split("-").join(" ")}
+                        </h3>
+                        <p className="text-primary font-medium mt-2">
+                          Starting from ₹{getPricing(p, "monthly", productVariants[p as keyof typeof productVariants][0], 3)}/month
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+            </div>
           </div>
         </div>
       </main>

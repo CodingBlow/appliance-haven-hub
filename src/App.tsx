@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import RentPage from "./pages/RentPage";
 import Products from "./pages/Products";
 import SellAppliance from "./pages/SellAppliance";
+import Maintenance from "./pages/Maintenance";
 import ScrollToTop from "./components/ScrollToTop";
 import FloatingButton from "./components/FloatingButton";
 
@@ -23,7 +24,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/rent/:productId" element={<RentPage />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:category" element={<Products />} />
           <Route path="/sell" element={<SellAppliance />} />
+          <Route path="/maintenance" element={<Maintenance />} />
         </Routes>
         <FloatingButton />
       </BrowserRouter>
