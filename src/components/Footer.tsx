@@ -3,7 +3,6 @@ import {
   PhoneCall,
   Copyright,
   Facebook,
-  Twitter,
   Instagram,
   Linkedin,
   MapPin,
@@ -66,8 +65,8 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <PhoneCall className="h-4 w-4" />
-                <a href="tel:+918744982935" className="hover:text-primary">
-                  087449 82935
+                <a href="tel:+918800120156" className="hover:text-primary">
+                  8800120156
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -104,14 +103,6 @@ export const Footer = () => {
             >
               <Facebook className="h-5 w-5" />
             </a>
-            {/* <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary"
-            >
-              <Twitter className="h-5 w-5" />
-            </a> */}
             <a
               href="https://instagram.com/zuridox"
               target="_blank"

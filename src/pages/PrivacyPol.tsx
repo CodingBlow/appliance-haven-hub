@@ -1,106 +1,119 @@
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import photo from "../assets/frame1.png";
+
 
 const PrivacyPolicy: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
-        <Navbar />
-        <h1 className="text-3xl font-semibold text-center text-blue-600 mb-6">
-          Privacy Policy
-        </h1>
-        <p className="text-lg text-gray-700 mb-6">
-          At Ac On Rent Gurugram, we value your privacy and are committed to protecting
-          your personal information. Please read our Privacy Policy carefully to
-          understand how we collect, use, and safeguard your data.
-        </p>
+      <Navbar />
+      <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md mt-20">
+        {/* Hero Section */}
+        <section className="relative bg-primary rounded-lg shadow-md mb-12">
+          <img
+            src={photo}
+            alt="Privacy Policy"
+            className="w-full h-64 object-cover rounded-t-lg transition-transform duration-300 hover:scale-105"
+          />
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
+            <h1 className="text-4xl font-bold text-white mb-2">
+              Privacy Policy
+            </h1>
+            <p className="text-lg text-white/80">
+              Your privacy matters to us at AC On Rent Gurugram.
+            </p>
+          </div>
+        </section>
 
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            1. Information We Collect
+        {/* Privacy Policy Details */}
+        <section className="text-center mb-12">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-primary mb-6">
+              Our Commitment
+            </h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              At{" "}
+              <span className="font-bold text-primary">
+                AC On Rent Gurugram
+              </span>
+              , we are dedicated to protecting your privacy. Please read our
+              Privacy Policy to understand how we collect, use, and safeguard
+              your information.
+            </p>
+          </div>
+        </section>
+
+        {/* Privacy Sections */}
+        <section className="grid md:grid-cols-2 gap-8 mb-12">
+          <div>
+            <h3 className="text-2xl font-semibold text-primary mb-4">
+              1. Information We Collect
+            </h3>
+            <p className="text-gray-700 leading-relaxed">
+              We collect personal information such as your name, email address,
+              phone number, and payment details to provide our services
+              effectively.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-2xl font-semibold text-primary mb-4">
+              2. How We Use Your Information
+            </h3>
+            <p className="text-gray-700 leading-relaxed">
+              Your information is used for processing orders, customer support,
+              and enhancing our services. We prioritize transparency in our
+              operations.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-2xl font-semibold text-primary mb-4">
+              3. Data Security
+            </h3>
+            <p className="text-gray-700 leading-relaxed">
+              We implement robust security measures to protect your data from
+              unauthorized access or breaches.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-2xl font-semibold text-primary mb-4">
+              4. Sharing Your Information
+            </h3>
+            <p className="text-gray-700 leading-relaxed">
+              We do not share your personal data without consent unless required
+              by law.
+            </p>
+          </div>
+        </section>
+
+        {/* Additional Information */}
+        <section className="text-center mb-12">
+          <h2 className="text-3xl font-semibold text-primary mb-8">
+            Your Rights and Our Responsibilities
           </h2>
-          <p className="text-gray-700">
-            We collect personal information, including but not limited to your
-            name, email address, phone number, payment details, and shipping
-            address when you use our services or make a purchase.
+          <p className="text-lg text-black leading-relaxed">
+            You have the right to access, update, or delete your personal data.
+            We continually strive to ensure your information is handled with the
+            utmost care.
           </p>
         </section>
 
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            2. How We Use Your Information
-          </h2>
-          <p className="text-gray-700">
-            The information we collect is used to process your orders, provide
-            customer support, improve our services, and communicate with you
-            regarding your rental.
+        {/* Call-to-Action Section */}
+        <section className="bg-primary text-white text-center p-6 rounded-lg shadow-md">
+          <h2 className="text-3xl font-bold mb-4">Stay Secure with Us</h2>
+          <p className="text-lg mb-6">
+            If you have questions about our Privacy Policy, feel free to contact
+            us.
           </p>
-        </section>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            3. Data Security
-          </h2>
-          <p className="text-gray-700">
-            We take appropriate security measures to protect your personal data
-            from unauthorized access, alteration, or destruction. Your payment
-            information is encrypted during transmission.
-          </p>
-        </section>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            4. Sharing Your Information
-          </h2>
-          <p className="text-gray-700">
-            We do not sell, rent, or share your personal information with third
-            parties without your consent, except for purposes related to
-            fulfilling your order or as required by law.
-          </p>
-        </section>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            5. Cookies and Tracking Technologies
-          </h2>
-          <p className="text-gray-700">
-            We may use cookies or similar technologies to improve your browsing
-            experience, analyze website usage, and personalize content and ads.
-          </p>
-        </section>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            6. Your Rights
-          </h2>
-          <p className="text-gray-700">
-            You have the right to access, update, or delete your personal
-            information. You may also opt out of receiving promotional emails or
-            notifications at any time.
-          </p>
-        </section>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            7. Changes to This Privacy Policy
-          </h2>
-          <p className="text-gray-700">
-            We reserve the right to update or modify this Privacy Policy at any
-            time. Any changes will be posted on this page, and the date of the
-            most recent revision will be indicated at the bottom.
-          </p>
-        </section>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold text-blue-600 mb-2">
-            8. Contact Us
-          </h2>
-          <p className="text-gray-700">
-            If you have any questions or concerns about this Privacy Policy or
-            how we handle your personal information, please contact us at:
-            support@example.com.
-          </p>
+          <button
+            onClick={() => navigate(`/contact`)}
+            className="bg-white text-primary px-6 py-2 rounded-lg font-semibold transition-colors duration-300 hover:text-black"
+          >
+            Contact Us
+          </button>
         </section>
       </div>
       <Footer />

@@ -80,11 +80,14 @@ const Maintenance = () => {
             Contact us for immediate assistance
           </p>
           <div className="flex justify-center gap-4">
-            <a href="tel:+1234567890" className="text-primary hover:underline">
+            <a
+              href="tel:+918800120156"
+              className="text-primary hover:underline"
+            >
               📞 Call Now
             </a>
             <a
-              href="https://wa.me/1234567890"
+              href="https://wa.me/+918800120156"
               className="text-green-500 hover:underline"
             >
               WhatsApp
