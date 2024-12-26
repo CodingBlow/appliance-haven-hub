@@ -15,6 +15,7 @@ import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
 import { OfferDialog } from "@/components/rent/OfferDialog";
 import { Link } from "react-router-dom";
+import { getAvailableMonths, getPricing } from "@/utils/pricing";
 
 const productVariants = {
   "window-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
@@ -23,164 +24,6 @@ const productVariants = {
   geyser: ["10L", "15L", "25L"],
   refrigerator: ["180L", "250L", "350L"],
   "washing-machine": ["6KG", "7.5KG", "9KG"],
-};
-
-const getPricing = (
-  productId: string,
-  duration: string,
-  variant: string,
-  months: number = 1
-) => {
-  const basePrice = {
-    "window-ac": {
-      "0.75 TON": {
-        3: 7869,
-        4: 8600,
-        5: 9245,
-        6: 9804,
-        7: 10234,
-        8: 10320,
-      },
-      "1.0 TON": {
-        3: 7960,
-        4: 8700,
-        5: 9352,
-        6: 9918,
-        7: 10048,
-        8: 10300,
-      },
-      "1.5 TON": {
-        3: 8052,
-        4: 8700,
-        5: 9352,
-        6: 10032,
-        7: 10472,
-        8: 10560,
-      },
-      "2.0 TON": {
-        3: 8143,
-        4: 8900,
-        5: 9567,
-        6: 10146,
-        7: 10591,
-        8: 10680,
-      },
-    },
-    "split-ac": {
-      "1.0 TON": {
-        3: 9772,
-        4: 11656,
-        5: 11780,
-        6: 11978,
-        7: 12152,
-        8: 12300,
-      },
-      "1.5 TON": {
-        3: 10452,
-        4: 12596,
-        5: 12730,
-        6: 12944,
-        7: 13132,
-        8: 13292,
-      },
-      "2.0 TON": {
-        3: 11232,
-        4: 13536,
-        5: 13680,
-        6: 13910,
-        7: 14112,
-        8: 14284,
-      },
-    },
-    "room-heater": {
-      "9Fin": {
-        "1": 2500,
-        "2": 3500,
-        "3": 4000,
-      },
-      "11Fin": {
-        "1": 2800,
-        "2": 4000,
-        "3": 4500,
-      },
-      "12Fin": {
-        "1": 2900,
-        "2": 4200,
-        "3": 4500,
-      },
-      "13Fin": {
-        "1": 3000,
-        "2": 4400,
-        "3": 4600,
-      },
-    },
-    "geyser": {
-      "15L - 20L": {
-        "2": 2500,
-        "3": 2700,
-        "4": 2961,
-        "5": 3001,
-      },
-    },
-    "refrigerator": {
-      "150-220L": {
-        "4": 3680,
-        "5": 4400,
-        "6": 4800,
-        "7": 5600,
-        "8": 6400,
-        "9": 7200,
-        "10": 8000,
-        "11": 8800,
-        "12": 9600,
-      },
-      "220-400L": {
-        "4": 4140,
-        "5": 4950,
-        "6": 5400,
-        "7": 6300,
-        "8": 7200,
-        "9": 8100,
-        "10": 9000,
-        "11": 9900,
-        "12": 10800,
-      },
-    },
-    "washing-machine": {
-      "semi-automatic": {
-        "4": 3220,
-        "5": 3850,
-        "6": 4200,
-        "7": 4900,
-        "8": 5600,
-        "9": 6300,
-        "10": 7000,
-        "11": 7700,
-        "12": 8400,
-      },
-      "fully-automatic": {
-        "4": 3450,
-        "5": 4125,
-        "6": 4500,
-        "7": 5250,
-        "8": 6000,
-        "9": 6750,
-        "10": 7500,
-        "11": 8250,
-        "12": 9000,
-      },
-    },
-  };
-
-  const priceForVariant =
-    basePrice[productId as keyof typeof basePrice]?.[variant];
-
-  if (priceForVariant && priceForVariant[months]) {
-    return priceForVariant[months];
-  }
-
-  const defaultPrice = 2999;
-  return defaultPrice;
 };
 
 const getProductImage = (productId: string) => {
@@ -212,6 +55,8 @@ const RentPage = () => {
       productVariants[productId as keyof typeof productVariants]?.[0] || "",
     months: "1",
   });
+
+  const availableMonths = getAvailableMonths(productId || "", formData.variant);
 
   const handleDurationChange = (value: string) => {
     setFormData({ ...formData, duration: value });
@@ -303,25 +148,15 @@ Address: ${customerData.address}
 
       <Navbar />
 
-      <main className="flex-grow py-20">
+      <main className="flex-grow py-12">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div className="lg:max-w-md">
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <div className="lg:sticky lg:top-24">
               <ProductDisplay
                 productId={productId || ""}
                 productImage={productImage}
                 variant={formData.variant}
               />
-              
-              <div className="mt-6 p-4 bg-white rounded-lg shadow">
-                <h3 className="text-lg font-semibold mb-2">Important Information:</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Refundable security deposit: ₹1,000</li>
-                  <li>• All payments are due in advance on delivery</li>
-                  <li>• Free maintenance covered for all rental products</li>
-                  <li>• The longer you rent, the less you spend per month</li>
-                </ul>
-              </div>
             </div>
 
             <div>
@@ -332,6 +167,7 @@ Address: ${customerData.address}
                 productVariants={
                   productVariants[productId as keyof typeof productVariants] || []
                 }
+                availableMonths={availableMonths}
                 onDurationChange={handleDurationChange}
                 onVariantChange={handleVariantChange}
                 onMonthsChange={handleMonthsChange}
@@ -341,7 +177,7 @@ Address: ${customerData.address}
             </div>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-16">
             <h2 className="text-2xl font-bold mb-6">Similar Products</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Object.keys(productVariants)
