@@ -75,7 +75,28 @@ export const PricingSection = ({
                 ))}
               </RadioGroup>
             </div>
-
+            <div>
+              <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
+                <Package className="h-4 w-4" /> Capacity Variant
+              </Label>
+              <RadioGroup
+                value={variant}
+                onValueChange={onVariantChange}
+                className="grid grid-cols-3 gap-3"
+              >
+                {productVariants?.map((v) => (
+                  <div key={v}>
+                    <RadioGroupItem value={v} id={v} className="peer sr-only" />
+                    <Label
+                      htmlFor={v}
+                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all text-sm"
+                    >
+                      <span>{v}</span>
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
             {duration === "monthly" && (
               <div>
                 <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
@@ -99,28 +120,7 @@ export const PricingSection = ({
               </div>
             )}
 
-            <div>
-              <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
-                <Package className="h-4 w-4" /> Capacity Variant
-              </Label>
-              <RadioGroup
-                value={variant}
-                onValueChange={onVariantChange}
-                className="grid grid-cols-3 gap-3"
-              >
-                {productVariants?.map((v) => (
-                  <div key={v}>
-                    <RadioGroupItem value={v} id={v} className="peer sr-only" />
-                    <Label
-                      htmlFor={v}
-                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all text-sm"
-                    >
-                      <span>{v}</span>
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
+          
 
             <div className="space-y-3">
               <div className="text-sm text-muted-foreground space-y-1">
