@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Split from "../assets/Product Image/Split AC.png";
 import WindowAC from "../assets/Product Image/Window Ac.jpg";
 import RoomHeater from "../assets/Product Image/Room Heater.jpg";
-import Fridge from "../assets/Product Image/Fridge.jpg";
+import Fridge from "../assets/Product Image/Fridge1.jpg";
 import WashingMachine from "../assets/Product Image/Washing mac.jpg";
 import Geyser from "../assets/Product Image/geyser.jpg";
 
