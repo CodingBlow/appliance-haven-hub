@@ -6,7 +6,7 @@ import { Wrench, Phone, Clock, Shield } from "lucide-react";
 
 const Maintenance = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-16">
       <Helmet>
         <title>Maintenance Services | ApplianceHaven</title>
         <meta name="description" content="Professional maintenance services for all your appliances. 24/7 support, expert technicians, and comprehensive care." />

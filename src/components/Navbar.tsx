@@ -34,32 +34,32 @@ export const Navbar = () => {
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/products/window-ac" className="block p-2 hover:bg-muted rounded-md">
+                      <Link to="/rent/window-ac" className="block p-2 hover:bg-muted rounded-md">
                         Window AC
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/products/split-ac" className="block p-2 hover:bg-muted rounded-md">
+                      <Link to="/rent/split-ac" className="block p-2 hover:bg-muted rounded-md">
                         Split AC
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/products/room-heater" className="block p-2 hover:bg-muted rounded-md">
+                      <Link to="/rent/room-heater" className="block p-2 hover:bg-muted rounded-md">
                         Room Heaters
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/products/geyser" className="block p-2 hover:bg-muted rounded-md">
+                      <Link to="/rent/geyser" className="block p-2 hover:bg-muted rounded-md">
                         Geysers
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/products/refrigerator" className="block p-2 hover:bg-muted rounded-md">
+                      <Link to="/rent/refrigerator" className="block p-2 hover:bg-muted rounded-md">
                         Refrigerators
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/products/washing-machine" className="block p-2 hover:bg-muted rounded-md">
+                      <Link to="/rent/washing-machine" className="block p-2 hover:bg-muted rounded-md">
                         Washing Machines
                       </Link>
                     </NavigationMenuLink>

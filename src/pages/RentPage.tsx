@@ -18,12 +18,12 @@ import { Link } from "react-router-dom";
 import { getAvailableMonths, getPricing } from "@/utils/pricing";
 
 const productVariants = {
-  "window-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
+  "window-ac": ["0.75 TON","1.0 TON", "1.5 TON", "2.0 TON"],
   "split-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
-  "room-heater": ["1000W", "1500W", "2000W"],
-  geyser: ["10L", "15L", "25L"],
-  refrigerator: ["180L", "250L", "350L"],
-  "washing-machine": ["6KG", "7.5KG", "9KG"],
+  "room-heater": ["9Fin", "11Fin", "12Fin","13Fin"],
+  geyser: ["15L - 20L"],
+  refrigerator: ["150-220L", "220-400L"],
+  "washing-machine": ["semi-automatic", "fully-automatic"],
 };
 
 const getProductImage = (productId: string) => {
@@ -134,7 +134,7 @@ Address: ${customerData.address}
   } variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 pt-16">
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -165,7 +165,8 @@ Address: ${customerData.address}
                 variant={formData.variant}
                 currentPrice={currentPrice}
                 productVariants={
-                  productVariants[productId as keyof typeof productVariants] || []
+                  productVariants[productId as keyof typeof productVariants] ||
+                  []
                 }
                 availableMonths={availableMonths}
                 onDurationChange={handleDurationChange}
@@ -184,11 +185,7 @@ Address: ${customerData.address}
                 .filter((p) => p !== productId)
                 .slice(0, 3)
                 .map((p) => (
-                  <Link
-                    key={p}
-                    to={`/rent/${p}`}
-                    className="block group"
-                  >
+                  <Link key={p} to={`/rent/${p}`} className="block group">
                     <div className="bg-white rounded-lg shadow-md overflow-hidden">
                       <img
                         src={getProductImage(p)}
@@ -200,7 +197,16 @@ Address: ${customerData.address}
                           {p.split("-").join(" ")}
                         </h3>
                         <p className="text-primary font-medium mt-2">
-                          Starting from ₹{getPricing(p, "monthly", productVariants[p as keyof typeof productVariants][0], 3)}/month
+                          Starting from ₹
+                          {getPricing(
+                            p,
+                            "monthly",
+                            productVariants[
+                              p as keyof typeof productVariants
+                            ][0],
+                            3
+                          )}
+                          /month
                         </p>
                       </div>
                     </div>
