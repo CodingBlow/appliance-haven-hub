@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
-import logo from "../assets/logo.png";
+import logo from "/logo.png";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {

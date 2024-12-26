@@ -14,21 +14,42 @@ const Products = () => {
       name: "Window AC",
       image: "/ac-1.jpg",
       description: "Efficient cooling for small to medium rooms",
-      price: "Starting from $30/month"
+      price: "Starting from ₹7869"
     },
     {
       id: "split-ac",
       name: "Split AC",
       image: "/ac-2.jpg",
       description: "Premium cooling solution for larger spaces",
-      price: "Starting from $45/month"
+      price: "Starting from ₹9772"
     },
     {
-      id: "portable-ac",
-      name: "Portable AC",
-      image: "/ac-3.jpg",
-      description: "Flexible cooling solution you can move anywhere",
-      price: "Starting from $25/month"
+      id: "room-heater",
+      name: "Room Heater",
+      image: "/heater.jpg", // Add image path
+      description: "Ideal for warming small to medium-sized rooms",
+      price: "Starting from ₹2500"
+    },
+    {
+      id: "geyser",
+      name: "Geyser",
+      image: "/geyser.jpg", // Add image path
+      description: "Reliable heating for your water needs",
+      price: "Starting from ₹2500"
+    },
+    {
+      id: "refrigerator",
+      name: "Refrigerator",
+      image: "/refrigerator.jpg", // Add image path
+      description: "Efficient cooling and storage for your groceries",
+      price: "Starting from ₹3680"
+    },
+    {
+      id: "washing-machine",
+      name: "Washing Machine",
+      image: "/washing-machine.jpg", // Add image path
+      description: "Convenient laundry solution for your home",
+      price: "Starting from ₹3220"
     }
   ];
 
