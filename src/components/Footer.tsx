@@ -97,23 +97,23 @@ export const Footer = () => {
           {/* Social Media Links */}
           <div className="flex justify-center space-x-6 text-gray-400">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/profile.php?id=61567274079370"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary"
             >
               <Facebook className="h-5 w-5" />
             </a>
-            <a
+            {/* <a
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary"
             >
               <Twitter className="h-5 w-5" />
-            </a>
+            </a> */}
             <a
-              href="https://instagram.com"
+              href="https://instagram.com/zuridox"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary"
@@ -121,7 +121,7 @@ export const Footer = () => {
               <Instagram className="h-5 w-5" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/zuridox/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary"
