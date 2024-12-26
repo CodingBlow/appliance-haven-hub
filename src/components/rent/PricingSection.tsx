@@ -57,6 +57,7 @@ export const PricingSection = ({
               </Label>
               <RadioGroup
                 defaultValue="monthly"
+                value={duration}
                 onValueChange={onDurationChange}
                 className="grid grid-cols-2 gap-3"
               >
@@ -103,7 +104,7 @@ export const PricingSection = ({
                 <Package className="h-4 w-4" /> Capacity Variant
               </Label>
               <RadioGroup
-                defaultValue={variant}
+                value={variant}
                 onValueChange={onVariantChange}
                 className="grid grid-cols-3 gap-3"
               >
