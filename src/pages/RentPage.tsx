@@ -32,6 +32,7 @@ const productVariants = {
   "washing-machine": ["semi-automatic", "fully-automatic"],
 };
 
+
 const getProductImage = (productId: string) => {
   const images = {
     "window-ac": WindowAC,
