@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { OldAcBuying } from "@/components/sell/OldAcBuying";
 
 const SellAppliance = () => {
   const { toast } = useToast();
@@ -275,6 +276,9 @@ const SellAppliance = () => {
             </Card>
           </motion.div>
         </div>
+        
+        {/* Old AC Buying Section */}
+        <OldAcBuying />
       </main>
       <Footer />
     </div>
