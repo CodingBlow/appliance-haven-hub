@@ -7,7 +7,7 @@ import WindowAC from "../assets/Product Image/Window Ac.png";
 import RoomHeater from "../assets/Product Image/Room Heater.jpg";
 import Fridge from "../assets/Product Image/Fridge1.png";
 import WashingMachine from "../assets/Product Image/Washing Mac.png";
-import Geyser from "../assets/Product Image/geyser.webp";
+import Geyser from "../assets/Product Image/Geyser2.png";
 
 
 const products = [
