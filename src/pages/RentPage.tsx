@@ -1,26 +1,16 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductDisplay } from "@/components/rent/ProductDisplay";
 import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
-import { Link } from "react-router-dom";
+import { SimilarProducts } from "@/components/rent/SimilarProducts";
 import { getAvailableMonths, getPricing } from "@/utils/pricing";
-import Split from "../assets/Product Image/Split AC.png";
-import WindowAC from "../assets/Product Image/Window Ac.png";
-import RoomHeater from "../assets/Product Image/Room Heater2.png";
-import Fridge from "../assets/Product Image/Fridge1.png";
-import WashingMachine from "../assets/Product Image/Washing Mac.png";
-import Geyser from "../assets/Product Image/Geyser2.png";
+import { getProductImage } from "@/utils/productImages";
 
 const productVariants = {
   "window-ac": ["0.75 TON","1.0 TON", "1.5 TON", "2.0 TON"],
@@ -31,32 +21,24 @@ const productVariants = {
   "washing-machine": ["semi-automatic", "fully-automatic"],
 };
 
-
-const getProductImage = (productId: string) => {
-  const images = {
-    "window-ac": WindowAC,
-    "split-ac": Split,
-    "room-heater": RoomHeater,
-    "geyser": Geyser,
-    "refrigerator": Fridge,
-    "washing-machine": WashingMachine,
-  };
-  return images[productId as keyof typeof images] || images["window-ac"];
-};
-
 const RentPage = () => {
   const { productId } = useParams();
   const { toast } = useToast();
   const [formDialogOpen, setFormDialogOpen] = useState(false);
-  // const [offerDialogOpen, setOfferDialogOpen] = useState(true);
   const [formData, setFormData] = useState({
     duration: "monthly",
-    variant:
-      productVariants[productId as keyof typeof productVariants]?.[0] || "",
+    variant: productVariants[productId as keyof typeof productVariants]?.[0] || "",
     months: "1",
   });
 
   const availableMonths = getAvailableMonths(productId || "", formData.variant);
+  const currentPrice = getPricing(
+    productId || "",
+    formData.duration,
+    formData.variant,
+    parseInt(formData.months)
+  );
+  const productImage = getProductImage(productId || "");
 
   const handleDurationChange = (value: string) => {
     setFormData({ ...formData, duration: value });
@@ -117,24 +99,11 @@ Address: ${customerData.address}
     }
   };
 
-  const currentPrice = getPricing(
-    productId || "",
-    formData.duration,
-    formData.variant,
-    parseInt(formData.months)
-  );
-
-  const productImage = getProductImage(productId || "");
-
   const title = `Rent ${productId?.split("-").join(" ")} | Ac On Rent Gurugram`;
-  const description = `Rent a premium ${productId
-    ?.split("-")
-    .join(" ")} with flexible rental periods. Available in ${
-    formData.variant
-  } variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
+  const description = `Rent a premium ${productId?.split("-").join(" ")} with flexible rental periods. Available in ${formData.variant} variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 pt-16">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -148,7 +117,7 @@ Address: ${customerData.address}
 
       <Navbar />
 
-      <main className="flex-grow py-12">
+      <main className="flex-grow py-12 mt-16">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div className="lg:sticky lg:top-24">
@@ -164,10 +133,7 @@ Address: ${customerData.address}
                 duration={formData.duration}
                 variant={formData.variant}
                 currentPrice={currentPrice}
-                productVariants={
-                  productVariants[productId as keyof typeof productVariants] ||
-                  []
-                }
+                productVariants={productVariants[productId as keyof typeof productVariants] || []}
                 availableMonths={availableMonths}
                 onDurationChange={handleDurationChange}
                 onVariantChange={handleVariantChange}
@@ -178,46 +144,7 @@ Address: ${customerData.address}
             </div>
           </div>
 
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold mb-6">Similar Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Object.keys(productVariants)
-                .filter((p) => p !== productId)
-                .slice(0, 3)
-                .map((p) => (
-                  <Link key={p} to={`/rent/${p}`} className="block group">
-                    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                      <div className="aspect-w-16 aspect-h-9">
-                        {" "}
-                        {/* Added aspect ratio container */}
-                        <img
-                          src={getProductImage(p)}
-                          alt={p.split("-").join(" ")}
-                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-lg font-semibold capitalize">
-                          {p.split("-").join(" ")}
-                        </h3>
-                        <p className="text-primary font-medium mt-2">
-                          Starting from ₹
-                          {getPricing(
-                            p,
-                            "monthly",
-                            productVariants[
-                              p as keyof typeof productVariants
-                            ][0],
-                            3
-                          )}
-                          /month
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </div>
+          <SimilarProducts currentProductId={productId || ""} productVariants={productVariants} />
         </div>
       </main>
 
@@ -230,12 +157,9 @@ Address: ${customerData.address}
         </DialogContent>
       </Dialog>
 
-      {/* <OfferDialog open={offerDialogOpen} onOpenChange={setOfferDialogOpen} /> */}
-
       <Footer />
     </div>
   );
 };
 
 export default RentPage;
-

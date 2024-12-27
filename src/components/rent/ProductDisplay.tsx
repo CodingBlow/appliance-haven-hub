@@ -17,22 +17,22 @@ export const ProductDisplay = ({ productId, productImage, variant }: ProductDisp
       className="w-full"
     >
       <Card className="overflow-hidden bg-white shadow-lg">
-        <CardContent className="p-0">
-          <div className="relative aspect-video overflow-hidden">
+        <CardContent className="p-6">
+          <div className="relative rounded-lg overflow-hidden bg-gray-50 p-4">
             <img
               src={productImage}
               alt={`${productId?.split("-").join(" ")} ${variant}`}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              className="w-full h-auto max-h-[400px] object-contain mx-auto"
             />
-            <Badge className="absolute top-4 right-4 bg-primary text-white">
+            <Badge className="absolute top-4 right-4 bg-primary hover:bg-primary-hover text-white">
               Available for Rent
             </Badge>
           </div>
-          <div className="p-8">
-            <h1 className="text-4xl font-bold capitalize mb-3">
+          <div className="mt-6 text-left">
+            <h1 className="text-3xl font-bold capitalize mb-2 text-gray-900">
               {productId?.split("-").join(" ")}
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-gray-600">
               Premium quality {productId?.split("-").join(" ")} available for flexible rental periods. 
               Perfect for homes and offices.
             </p>
