@@ -19,11 +19,13 @@ export const ProductDisplay = ({ productId, productImage, variant }: ProductDisp
       <Card className="overflow-hidden bg-white shadow-lg">
         <CardContent className="p-6">
           <div className="relative rounded-lg overflow-hidden bg-gray-50 p-4">
-            <img
-              src={productImage}
-              alt={`${productId?.split("-").join(" ")} ${variant}`}
-              className="w-full h-auto max-h-[400px] object-contain mx-auto"
-            />
+            <div className="aspect-square w-full max-w-[400px] mx-auto">
+              <img
+                src={productImage}
+                alt={`${productId?.split("-").join(" ")} ${variant}`}
+                className="w-full h-full object-contain"
+              />
+            </div>
             <Badge className="absolute top-4 right-4 bg-primary hover:bg-primary-hover text-white">
               Available for Rent
             </Badge>

@@ -44,36 +44,12 @@ export const PricingSection = ({
             <div className="text-right">
               <p className="text-3xl font-bold text-primary">₹{currentPrice}</p>
               <p className="text-sm text-muted-foreground">
-                per {duration === "monthly" && selectedMonths ? `${selectedMonths} months` : duration}
+                {selectedMonths === "1" ? "Starting Price" : `per ${duration === "monthly" && selectedMonths ? `${selectedMonths} months` : duration}`}
               </p>
             </div>
           </div>
 
           <div className="space-y-6">
-            {/* <div>
-              <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
-                <Clock className="h-4 w-4" /> Rental Duration
-              </Label>
-              <RadioGroup
-                defaultValue="monthly"
-                value={duration}
-                onValueChange={onDurationChange}
-                className="grid grid-cols-2 gap-3"
-              >
-                {["monthly", "yearly"].map((d) => (
-                  <div key={d}>
-                    <RadioGroupItem value={d} id={d} className="peer sr-only" />
-                    <Label
-                      htmlFor={d}
-                      className="flex flex-col items-center justify-between rounded-lg border-2 border-muted bg-white p-4 hover:bg-gray-50 peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all"
-                    >
-                      <Calendar className="h-5 w-5 mb-2" />
-                      <span className="capitalize text-sm">{d}</span>
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </div> */}
             <div>
               <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
                 <Package className="h-4 w-4" /> Capacity Variant
@@ -96,30 +72,27 @@ export const PricingSection = ({
                 ))}
               </RadioGroup>
             </div>
-            {duration === "monthly" && (
-              <div>
-                <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
-                  <Calendar className="h-4 w-4" /> Number of Months
-                </Label>
-                <Select onValueChange={onMonthsChange} value={selectedMonths}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select duration" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white text-gray-900">
-                    {availableMonths.map((month) => (
-                      <SelectItem key={month} value={month.toString()}>
-                        {month} {month === 1 ? 'month' : 'months'}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <p className="text-sm text-muted-foreground mt-2">
-                  The longer you rent, the lesser you spend per month
-                </p>
-              </div>
-            )}
 
-          
+            <div>
+              <Label className="text-lg font-semibold mb-3 flex items-center gap-2">
+                <Calendar className="h-4 w-4" /> Number of Months
+              </Label>
+              <Select onValueChange={onMonthsChange} value={selectedMonths}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select duration" />
+                </SelectTrigger>
+                <SelectContent className="bg-white text-gray-900">
+                  {availableMonths.map((month) => (
+                    <SelectItem key={month} value={month.toString()}>
+                      {month} {month === 1 ? 'month' : 'months'}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-sm text-muted-foreground mt-2">
+                The longer you rent, the lesser you spend per month
+              </p>
+            </div>
 
             <div className="space-y-3">
               <div className="text-sm text-muted-foreground space-y-1">
