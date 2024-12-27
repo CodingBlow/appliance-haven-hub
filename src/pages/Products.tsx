@@ -22,14 +22,14 @@ const Products = () => {
       name: "Window AC",
       image: WindowAC,
       description: "Efficient cooling for small to medium rooms",
-      price: "Starting from ₹7869",
+      price: "Starting from ₹2600",
     },
     {
       id: "split-ac",
       name: "Split AC",
       image: Split,
       description: "Premium cooling solution for larger spaces",
-      price: "Starting from ₹9772",
+      price: "Starting from ₹3200",
     },
     {
       id: "room-heater",
@@ -43,21 +43,21 @@ const Products = () => {
       name: "Geyser",
       image: Geyser,
       description: "Reliable heating for your water needs",
-      price: "Starting from ₹2500",
+      price: "Starting from ₹1200",
     },
     {
       id: "refrigerator",
       name: "Refrigerator",
       image: Fridge,
       description: "Efficient cooling and storage for your groceries",
-      price: "Starting from ₹3680",
+      price: "Starting from ₹900",
     },
     {
       id: "washing-machine",
       name: "Washing Machine",
       image: WashingMachine,
       description: "Convenient laundry solution for your home",
-      price: "Starting from ₹3220",
+      price: "Starting from ₹800",
     },
   ];
 
