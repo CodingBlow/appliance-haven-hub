@@ -16,7 +16,7 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-4 text-yellow-500">
+            <h3 className="font-bold text-lg mb-4 text-[#0097b2]">
               Ac On Rent Gurugram
             </h3>
             <p className="text-gray-400">
@@ -29,22 +29,22 @@ export const Footer = () => {
             <h3 className="font-bold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="/products" className="hover:text-primary">
+                <a href="/products" className="hover:text-[#0097b2]">
                   Products
                 </a>
               </li>
               <li>
-                <a href="/maintenance" className="hover:text-primary">
+                <a href="/maintenance" className="hover:text-[#0097b2]">
                   Maintenance
                 </a>
               </li>
               <li>
-                <a href="/about" className="hover:text-primary">
+                <a href="/about" className="hover:text-[#0097b2]">
                   About
                 </a>
               </li>
               <li>
-                <a href="/contact" className="hover:text-primary">
+                <a href="/contact" className="hover:text-[#0097b2]">
                   Contact
                 </a>
               </li>
@@ -58,14 +58,14 @@ export const Footer = () => {
                 <Mail className="h-4 w-4" />
                 <a
                   href="mailto:AcOnRentGurugram24@gmail.com"
-                  className="hover:text-primary"
+                  className="hover:text-[#0097b2]"
                 >
                   AcOnRentGurugram24@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <PhoneCall className="h-4 w-4" />
-                <a href="tel:+918800120156" className="hover:text-primary">
+                <a href="tel:+918800120156" className="hover:text-[#0097b2]">
                   8800120156
                 </a>
               </li>
@@ -80,12 +80,12 @@ export const Footer = () => {
             <h3 className="font-bold text-lg mb-4">Legal</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="/privacy" className="hover:text-primary">
+                <a href="/privacy" className="hover:text-[#0097b2]">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="/terms" className="hover:text-primary">
+                <a href="/terms" className="hover:text-[#0097b2]">
                   Terms of Service
                 </a>
               </li>
@@ -99,7 +99,7 @@ export const Footer = () => {
               href="https://www.facebook.com/profile.php?id=61567274079370"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary"
+              className="hover:text-[#0097b2]"
             >
               <Facebook className="h-5 w-5" />
             </a>
@@ -107,7 +107,7 @@ export const Footer = () => {
               href="https://instagram.com/zuridox"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary"
+              className="hover:text-[#0097b2]"
             >
               <Instagram className="h-5 w-5" />
             </a>
@@ -115,7 +115,7 @@ export const Footer = () => {
               href="https://www.linkedin.com/company/zuridox/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary"
+              className="hover:text-[#0097b2]"
             >
               <Linkedin className="h-5 w-5" />
             </a>
@@ -129,7 +129,7 @@ export const Footer = () => {
               Website designed by{" "}
               <a
                 href="https://www.zuridox.com"
-                className="text-primary hover:underline"
+                className="text-[#0097b2] hover:underline"
               >
                 Zuridox
               </a>

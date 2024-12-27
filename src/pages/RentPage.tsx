@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -13,9 +18,9 @@ import { getAvailableMonths, getPricing } from "@/utils/pricing";
 import { getProductImage } from "@/utils/productImages";
 
 const productVariants = {
-  "window-ac": ["0.75 TON","1.0 TON", "1.5 TON", "2.0 TON"],
+  "window-ac": ["0.75 TON", "1.0 TON", "1.5 TON", "2.0 TON"],
   "split-ac": ["1.0 TON", "1.5 TON", "2.0 TON"],
-  "room-heater": ["9Fin", "11Fin", "12Fin","13Fin"],
+  "room-heater": ["9Fin", "11Fin", "12Fin", "13Fin"],
   geyser: ["15L - 20L"],
   refrigerator: ["150-220L", "220-400L"],
   "washing-machine": ["semi-automatic", "fully-automatic"],
@@ -27,7 +32,8 @@ const RentPage = () => {
   const [formDialogOpen, setFormDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     duration: "monthly",
-    variant: productVariants[productId as keyof typeof productVariants]?.[0] || "",
+    variant:
+      productVariants[productId as keyof typeof productVariants]?.[0] || "",
     months: "1",
   });
 
@@ -100,7 +106,11 @@ Address: ${customerData.address}
   };
 
   const title = `Rent ${productId?.split("-").join(" ")} | Ac On Rent Gurugram`;
-  const description = `Rent a premium ${productId?.split("-").join(" ")} with flexible rental periods. Available in ${formData.variant} variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
+  const description = `Rent a premium ${productId
+    ?.split("-")
+    .join(" ")} with flexible rental periods. Available in ${
+    formData.variant
+  } variant. Starting from ₹${currentPrice} per ${formData.duration}.`;
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -119,7 +129,7 @@ Address: ${customerData.address}
 
       <main className="flex-grow py-12 mt-16">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 items-start max-w-7xl mx-auto">
+          <div className="flex flex-wrap justify-around gap-4 lg:gap-6 max-w-7xl mx-auto">
             {/* Left side - Product Image */}
             <div className="lg:sticky lg:top-24">
               <ProductDisplay
@@ -135,7 +145,10 @@ Address: ${customerData.address}
                 duration={formData.duration}
                 variant={formData.variant}
                 currentPrice={currentPrice}
-                productVariants={productVariants[productId as keyof typeof productVariants] || []}
+                productVariants={
+                  productVariants[productId as keyof typeof productVariants] ||
+                  []
+                }
                 availableMonths={availableMonths}
                 onDurationChange={handleDurationChange}
                 onVariantChange={handleVariantChange}
@@ -168,7 +181,9 @@ Address: ${customerData.address}
                           {p.split("-").join(" ")}
                         </h3>
                         <p className="text-primary font-medium mt-2">
-                          Starting from ₹{getPricing(p, "monthly", productVariants[p][0], 3)}/month
+                          Starting from ₹
+                          {getPricing(p, "monthly", productVariants[p][0], 3)}
+                          /month
                         </p>
                       </div>
                     </div>
