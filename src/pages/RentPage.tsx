@@ -13,10 +13,9 @@ import { Footer } from "@/components/Footer";
 import { ProductDisplay } from "@/components/rent/ProductDisplay";
 import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
-// import { OfferDialog } from "@/components/rent/OfferDialog";
 import { Link } from "react-router-dom";
 import { getAvailableMonths, getPricing } from "@/utils/pricing";
-import Split from "../assets/Product Image/Split Ac.png";
+import Split from "../assets/Product Image/Split AC.png";
 import WindowAC from "../assets/Product Image/Window Ac.png";
 import RoomHeater from "../assets/Product Image/Room Heater2.png";
 import Fridge from "../assets/Product Image/Fridge1.png";
@@ -239,3 +238,4 @@ Address: ${customerData.address}
 };
 
 export default RentPage;
+
