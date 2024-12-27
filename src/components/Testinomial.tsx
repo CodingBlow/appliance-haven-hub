@@ -6,7 +6,7 @@ import logo3 from "../assets/Screenshot 2024-12-26 082900.png";
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Chen",
+    name: "Manoj Kumar",
     role: "Product Manager",
     company: "TechFlow Inc.",
     text: "The AC rental service exceeded my expectations. The units were delivered on time and the cooling performance was excellent. Their team was professional and installation was quick.",
@@ -22,7 +22,7 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Maya Singh",
+    name: "Rahul Sharma",
     role: "Event Coordinator",
     company: "Celebrations Ltd",
     text: "Perfect solution for our outdoor events. The portable AC units work great and their team helps with setup. Highly recommend for any event planning needs.",
