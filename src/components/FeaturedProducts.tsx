@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import Split from "../assets/Product Image/Split AC.png";
-import WindowAC from "../assets/Product Image/Window Ac.jpg";
+import Split from "../assets/Product Image/Split Ac.png";
+import WindowAC from "../assets/Product Image/Window Ac.png";
 import RoomHeater from "../assets/Product Image/Room Heater.jpg";
 import Fridge from "../assets/Product Image/Fridge1.png";
-import WashingMachine from "../assets/Product Image/Washing mac.jpg";
-import Geyser from "../assets/Product Image/geyser.jpg";
+import WashingMachine from "../assets/Product Image/Washing Mac.png";
+import Geyser from "../assets/Product Image/geyser.webp";
 
 
 const products = [

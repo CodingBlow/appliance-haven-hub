@@ -16,6 +16,12 @@ import { RentalForm } from "@/components/rent/RentalForm";
 // import { OfferDialog } from "@/components/rent/OfferDialog";
 import { Link } from "react-router-dom";
 import { getAvailableMonths, getPricing } from "@/utils/pricing";
+import Split from "../assets/Product Image/Split Ac.png";
+import WindowAC from "../assets/Product Image/Window Ac.png";
+import RoomHeater from "../assets/Product Image/Room Heater2.png";
+import Fridge from "../assets/Product Image/Fridge1.png";
+import WashingMachine from "../assets/Product Image/Washing Mac.png";
+import Geyser from "../assets/Product Image/Geyser2.png";
 
 const productVariants = {
   "window-ac": ["0.75 TON","1.0 TON", "1.5 TON", "2.0 TON"],
@@ -28,18 +34,12 @@ const productVariants = {
 
 const getProductImage = (productId: string) => {
   const images = {
-    "window-ac":
-      "https://www.ikrent.com/assets/image/ikrent-window-ac-for-rent-gurgaon.webp",
-    "split-ac":
-      "https://www.ikrent.com/assets/image/ikrent-split-ac-on-rent.webp",
-    "room-heater":
-      "https://www.ikrent.com/assets/image/ikrent-OFR-9-fin-on-rent.webp",
-    geyser:
-      "https://www.ikrent.com/assets/image/ikrent-water-geyser-for-rent.webp",
-    refrigerator:
-      "https://www.ikrent.com/assets/image/ikrent-refrigerator-on-rent.webp",
-    "washing-machine":
-      "https://www.ikrent.com/assets/image/ikrent-semi-automatic-washing-machine-on-rent.webp",
+    "window-ac": WindowAC,
+    "split-ac": Split,
+    "room-heater": RoomHeater,
+    "geyser": Geyser,
+    "refrigerator": Fridge,
+    "washing-machine": WashingMachine,
   };
   return images[productId as keyof typeof images] || images["window-ac"];
 };
@@ -187,11 +187,15 @@ Address: ${customerData.address}
                 .map((p) => (
                   <Link key={p} to={`/rent/${p}`} className="block group">
                     <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                      <img
-                        src={getProductImage(p)}
-                        alt={p.split("-").join(" ")}
-                        className="w-full h-48 object-fit group-hover:scale-105 transition-transform duration-300"
-                      />
+                      <div className="aspect-w-16 aspect-h-9">
+                        {" "}
+                        {/* Added aspect ratio container */}
+                        <img
+                          src={getProductImage(p)}
+                          alt={p.split("-").join(" ")}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
                       <div className="p-4">
                         <h3 className="text-lg font-semibold capitalize">
                           {p.split("-").join(" ")}
