@@ -179,7 +179,7 @@ export const Navbar = () => {
                 to="/sell"
                 className="block text-black text-xl hover:underline"
               >
-                Sell Your Appliance
+                Sell Your Old Used Ac Here
               </Link>
               <Link
                 to="/maintenance"
