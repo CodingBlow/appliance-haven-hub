@@ -102,7 +102,7 @@ export const Navbar = () => {
                         to="/sell"
                         className="block p-2 hover:bg-muted rounded-md"
                       >
-                        Sell Your Appliance
+                        Sell Your Old Used Ac Here
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
