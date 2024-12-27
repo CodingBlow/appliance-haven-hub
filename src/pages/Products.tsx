@@ -5,6 +5,14 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
+// Importing images
+import Split from "../assets/Product Image/Split AC.png";
+import WindowAC from "../assets/Product Image/Window Ac.png";
+import RoomHeater from "../assets/Product Image/Room Heater2.png";
+import Fridge from "../assets/Product Image/Fridge1.png";
+import WashingMachine from "../assets/Product Image/Washing Mac.png";
+import Geyser from "../assets/Product Image/Geyser2.png";
+
 const Products = () => {
   const navigate = useNavigate();
 
@@ -12,45 +20,45 @@ const Products = () => {
     {
       id: "window-ac",
       name: "Window AC",
-      image: "/ac-1.jpg",
+      image: WindowAC,
       description: "Efficient cooling for small to medium rooms",
-      price: "Starting from ₹7869"
+      price: "Starting from ₹7869",
     },
     {
       id: "split-ac",
       name: "Split AC",
-      image: "/ac-2.jpg",
+      image: Split,
       description: "Premium cooling solution for larger spaces",
-      price: "Starting from ₹9772"
+      price: "Starting from ₹9772",
     },
     {
       id: "room-heater",
       name: "Room Heater",
-      image: "/heater.jpg", // Add image path
+      image: RoomHeater,
       description: "Ideal for warming small to medium-sized rooms",
-      price: "Starting from ₹2500"
+      price: "Starting from ₹2500",
     },
     {
       id: "geyser",
       name: "Geyser",
-      image: "/geyser.jpg", // Add image path
+      image: Geyser,
       description: "Reliable heating for your water needs",
-      price: "Starting from ₹2500"
+      price: "Starting from ₹2500",
     },
     {
       id: "refrigerator",
       name: "Refrigerator",
-      image: "/refrigerator.jpg", // Add image path
+      image: Fridge,
       description: "Efficient cooling and storage for your groceries",
-      price: "Starting from ₹3680"
+      price: "Starting from ₹3680",
     },
     {
       id: "washing-machine",
       name: "Washing Machine",
-      image: "/washing-machine.jpg", // Add image path
+      image: WashingMachine,
       description: "Convenient laundry solution for your home",
-      price: "Starting from ₹3220"
-    }
+      price: "Starting from ₹3220",
+    },
   ];
 
   return (
@@ -77,7 +85,7 @@ const Products = () => {
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-48 object-cover"
+                        className="w-full h-48 object-contain"
                       />
                       <div className="p-6">
                         <h2 className="text-2xl font-semibold mb-2">{product.name}</h2>
