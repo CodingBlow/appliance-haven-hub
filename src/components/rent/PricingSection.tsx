@@ -30,6 +30,13 @@ export const PricingSection = ({
   selectedMonths,
   onSubmitClick,
 }: PricingSectionProps) => {
+  const startingMonth = availableMonths[0];
+  const priceLabel = !selectedMonths 
+    ? `Starting from ${startingMonth} ${startingMonth === 1 ? 'month' : 'months'}`
+    : selectedMonths === "1" 
+      ? "Starting Price" 
+      : `per ${duration === "monthly" && selectedMonths ? `${selectedMonths} months` : duration}`;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -44,7 +51,7 @@ export const PricingSection = ({
             <div className="text-right">
               <p className="text-3xl font-bold text-primary">₹{currentPrice}</p>
               <p className="text-sm text-muted-foreground">
-                {selectedMonths === "1" ? "Starting Price" : `per ${duration === "monthly" && selectedMonths ? `${selectedMonths} months` : duration}`}
+                {priceLabel}
               </p>
             </div>
           </div>
@@ -79,7 +86,7 @@ export const PricingSection = ({
               </Label>
               <Select onValueChange={onMonthsChange} value={selectedMonths}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select duration" />
+                  <SelectValue placeholder={`Select duration (min. ${startingMonth} ${startingMonth === 1 ? 'month' : 'months'})`} />
                 </SelectTrigger>
                 <SelectContent className="bg-white text-gray-900">
                   {availableMonths.map((month) => (
