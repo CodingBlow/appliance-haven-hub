@@ -1,21 +1,16 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductDisplay } from "@/components/rent/ProductDisplay";
 import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
-import { SimilarProducts } from "@/components/rent/SimilarProducts";
-import { getAvailableMonths, getPricing } from "@/utils/pricing";
+import { ProductSpecifications } from "@/components/rent/ProductSpecifications";
 import { getProductImage } from "@/utils/productImages";
+import { getAvailableMonths, getPricing } from "@/utils/pricing";
 
 const productVariants = {
   "window-ac": ["0.75 TON", "1.0 TON", "1.5 TON", "2.0 TON"],
@@ -129,26 +124,22 @@ Address: ${customerData.address}
 
       <main className="flex-grow py-12 mt-16">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-around gap-4 lg:gap-6 max-w-7xl mx-auto">
-            {/* Left side - Product Image */}
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div className="lg:sticky lg:top-24">
               <ProductDisplay
                 productId={productId || ""}
                 productImage={productImage}
                 variant={formData.variant}
               />
+              <ProductSpecifications productId={productId || ""} />
             </div>
 
-            {/* Right side - Rental Options */}
             <div>
               <PricingSection
                 duration={formData.duration}
                 variant={formData.variant}
                 currentPrice={currentPrice}
-                productVariants={
-                  productVariants[productId as keyof typeof productVariants] ||
-                  []
-                }
+                productVariants={productVariants[productId as keyof typeof productVariants] || []}
                 availableMonths={availableMonths}
                 onDurationChange={handleDurationChange}
                 onVariantChange={handleVariantChange}
@@ -181,9 +172,7 @@ Address: ${customerData.address}
                           {p.split("-").join(" ")}
                         </h3>
                         <p className="text-primary font-medium mt-2">
-                          Starting from ₹
-                          {getPricing(p, "monthly", productVariants[p][0], 3)}
-                          /month
+                          Starting from ₹{getPricing(p, "monthly", productVariants[p][0], 3)}/month
                         </p>
                       </div>
                     </div>
@@ -194,7 +183,6 @@ Address: ${customerData.address}
         </div>
       </main>
 
-      {/* Rental Form Dialog */}
       <Dialog open={formDialogOpen} onOpenChange={setFormDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
