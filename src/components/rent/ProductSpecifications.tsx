@@ -30,7 +30,114 @@ export const ProductSpecifications = ({ productId }: ProductSpecificationsProps)
       brands: "Available brands include Orient, Khetan, Bajaj, Maharaja, Vox, Delongi, Morphy, etc. (subject to availability)",
       note: "All pictures shown are for illustration purpose. Actual product may vary."
     },
-    // Add specifications for other products here
+    "window-ac": {
+      highlights: [
+        "Energy-efficient cooling performance",
+        "Easy installation and maintenance",
+        "Robust build quality for long-term use",
+        "Multiple fan speed settings"
+      ],
+      features: [
+        "Anti-bacterial filter for clean air",
+        "Auto restart function after power cuts",
+        "Sleep mode for comfortable nights",
+        "Self-diagnosis feature for easy maintenance",
+        "Rotary compressor for efficient cooling"
+      ],
+      sizingGuide: [
+        "0.75 Ton: Suitable for up to 120 sq ft",
+        "1.0 Ton: Ideal for 120-180 sq ft",
+        "1.5 Ton: Perfect for 180-240 sq ft",
+        "2.0 Ton: Best for 240-400 sq ft"
+      ],
+      brands: "Available brands include Voltas, Blue Star, Carrier, LG, Samsung, etc. (subject to availability)",
+      note: "All pictures shown are for illustration purpose. Actual product may vary."
+    },
+    "split-ac": {
+      highlights: [
+        "Inverter technology for power savings",
+        "Elegant design with LED display",
+        "Wide air distribution",
+        "Quick cooling technology"
+      ],
+      features: [
+        "4-way air swing for uniform cooling",
+        "Dual inverter compressor",
+        "Anti-virus protection",
+        "Low noise operation",
+        "Smart diagnosis system"
+      ],
+      sizingGuide: [
+        "1.0 Ton: Ideal for rooms up to 120 sq ft",
+        "1.5 Ton: Perfect for 120-180 sq ft",
+        "2.0 Ton: Suitable for 180-240 sq ft"
+      ],
+      brands: "Available brands include Daikin, Hitachi, LG, Samsung, etc. (subject to availability)",
+      note: "All pictures shown are for illustration purpose. Actual product may vary."
+    },
+    "refrigerator": {
+      highlights: [
+        "Energy-efficient operation",
+        "Multiple storage compartments",
+        "Adjustable temperature control",
+        "Quick freeze function"
+      ],
+      features: [
+        "Multi-airflow system",
+        "Toughened glass shelves",
+        "Vegetable crisper",
+        "Door alarm",
+        "Anti-bacterial gasket"
+      ],
+      sizingGuide: [
+        "150L-220L: Ideal for 2-3 members",
+        "220L-400L: Perfect for 3-5 members"
+      ],
+      brands: "Available brands include LG, Samsung, Whirlpool, Godrej, etc. (subject to availability)",
+      note: "All pictures shown are for illustration purpose. Actual product may vary."
+    },
+    "washing-machine": {
+      highlights: [
+        "Multiple wash programs",
+        "Energy and water efficient",
+        "Durable build quality",
+        "Easy to use controls"
+      ],
+      features: [
+        "Quick wash option",
+        "Delay start function",
+        "Child lock safety",
+        "Auto-restart after power cuts",
+        "Lint filter"
+      ],
+      sizingGuide: [
+        "6-7 kg: Ideal for 3-4 members",
+        "7-8 kg: Perfect for 4-6 members"
+      ],
+      brands: "Available brands include LG, Samsung, IFB, Whirlpool, etc. (subject to availability)",
+      note: "All pictures shown are for illustration purpose. Actual product may vary."
+    },
+    "geyser": {
+      highlights: [
+        "Quick heating technology",
+        "Safety cut-off system",
+        "Corrosion-resistant tank",
+        "Temperature control"
+      ],
+      features: [
+        "Auto shut-off function",
+        "High-pressure resistance",
+        "Glass-lined tank",
+        "Energy-efficient heating",
+        "Long-lasting performance"
+      ],
+      sizingGuide: [
+        "15L: Suitable for 2-3 members",
+        "20L: Ideal for 3-4 members"
+      ],
+      brands: "Available brands include Bajaj, Havells, AO Smith, Venus, etc. (subject to availability)",
+      note: "All pictures shown are for illustration purpose. Actual product may vary."
+    }
   };
 
   const productSpecs = specifications[productId as keyof typeof specifications];
