@@ -32,10 +32,8 @@ export const PricingSection = ({
 }: PricingSectionProps) => {
   const startingMonth = availableMonths[0];
   const priceLabel = !selectedMonths 
-    ? `Starting from ${startingMonth} ${startingMonth === 1 ? 'month' : 'months'}`
-    : selectedMonths === "1" 
-      ? "Starting Price" 
-      : `per ${duration === "monthly" && selectedMonths ? `${selectedMonths} months` : duration}`;
+    ? `Starting from ${startingMonth} months`
+    : `per ${selectedMonths} months`;
 
   return (
     <motion.div
@@ -78,6 +76,9 @@ export const PricingSection = ({
                   </div>
                 ))}
               </RadioGroup>
+              <p className="text-sm text-muted-foreground mt-2">
+                Please select a capacity variant to view pricing options
+              </p>
             </div>
 
             <div>
@@ -86,18 +87,18 @@ export const PricingSection = ({
               </Label>
               <Select onValueChange={onMonthsChange} value={selectedMonths}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder={`Select duration (min. ${startingMonth} ${startingMonth === 1 ? 'month' : 'months'})`} />
+                  <SelectValue placeholder={`Select duration (min. ${startingMonth} months)`} />
                 </SelectTrigger>
                 <SelectContent className="bg-white text-gray-900">
                   {availableMonths.map((month) => (
                     <SelectItem key={month} value={month.toString()}>
-                      {month} {month === 1 ? 'month' : 'months'}
+                      {month} months
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               <p className="text-sm text-muted-foreground mt-2">
-                The longer you rent, the lesser you spend per month
+                Choose rental duration to see final pricing
               </p>
             </div>
 

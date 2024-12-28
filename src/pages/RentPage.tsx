@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
@@ -9,6 +9,7 @@ import { ProductDisplay } from "@/components/rent/ProductDisplay";
 import { PricingSection } from "@/components/rent/PricingSection";
 import { RentalForm } from "@/components/rent/RentalForm";
 import { ProductSpecifications } from "@/components/rent/ProductSpecifications";
+import { SimilarProducts } from "@/components/rent/SimilarProducts";
 import { getProductImage } from "@/utils/productImages";
 import { getAvailableMonths, getPricing } from "@/utils/pricing";
 
@@ -29,7 +30,7 @@ const RentPage = () => {
     duration: "monthly",
     variant:
       productVariants[productId as keyof typeof productVariants]?.[0] || "",
-    months: "1",
+    months: "",
   });
 
   const availableMonths = getAvailableMonths(productId || "", formData.variant);
@@ -37,7 +38,7 @@ const RentPage = () => {
     productId || "",
     formData.duration,
     formData.variant,
-    parseInt(formData.months)
+    parseInt(formData.months) || availableMonths[0]
   );
   const productImage = getProductImage(productId || "");
 
@@ -150,6 +151,11 @@ Address: ${customerData.address}
           </div>
 
           <ProductSpecifications productId={productId || ""} />
+          
+          <SimilarProducts 
+            currentProductId={productId || ""} 
+            productVariants={productVariants}
+          />
         </div>
       </main>
 
